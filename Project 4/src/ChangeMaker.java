@@ -14,6 +14,8 @@ public class ChangeMaker {
     }
 
     public static int[] change_DP(int n, int []d){
+    	// needs the n amount and the d-array of coin values
+    	// will be bottom up method
         int [] C = new int[];
         int [] A = new int[];
 
