@@ -2,6 +2,11 @@
  *November 16, 2018
  *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
  *Aurora Paz - aepaz@calpoly.edu
+ *Natalie Miller - nmille35@calpoly.edu
+ *
+ * In this project we are implemening a a change maker where the given set
+ * of coin demominations {d1, d2, ..., dk} and amount n, make change for n 
+ * using the min # of coins. No limit to # of coins of any di. 
  */
 
 import java.util.Scanner;
@@ -33,7 +38,7 @@ public class ChangeMaker {
     }
 
     private static void findOptiamalSol(){
-    	
+
     }
 
 }
