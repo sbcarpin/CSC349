@@ -11,6 +11,7 @@
 
 import java.util.Scanner;
 import java.io.*;
+import java.lang.Math;
 
 public class ChangeMaker {
 
@@ -30,6 +31,17 @@ public class ChangeMaker {
         int [] C = new int[n-1];
         int [] A = new int[];
 
+        //for going through d array
+        for(int i = 0; i < n; i++){
+
+        	// going to go thrugh and fill C for size n
+        	// j <= n
+        	for(int j = 0; j < n; j++){
+        		C[j] = findOptiamalSol(j, d[i]);
+        	}
+        }
+        
+
 
         return C;
         /*returns an array containing the count of coins for 
@@ -37,8 +49,23 @@ public class ChangeMaker {
         n amount*/
     }
 
-    private static void findOptiamalSol(){
+    // finding optimal sol recursivly and solving for C[j]
+    private static int findOptiamalSol(int j, int [] C, int di){
+    	if(j != 0 && j > 0){
+    		if(j >= di){
+    			// add for loop here?
+    			return 1 + Math.min(C[j-di]);
+    		}
+    		else{
+    			// if j<di, then the C[j-di] can’t be the min value and 
+    			//thus shouldn’t be compared/checked
+    			return
+    		}
+    	}
 
+    	// we return 0 because if the if statement does not get executed,
+    	// it usually means it is zero
+    	return 0;
     }
 
 }
