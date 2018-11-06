@@ -29,6 +29,8 @@ public class ChangeMaker {
     	//array C[0...n] to hold cj vals
     	//goal get C[n]
         int [] C = new int[n-1];
+
+        // A[j] info saved when computing C[j]
         int [] A = new int[];
 
         //for going through d array
@@ -37,7 +39,7 @@ public class ChangeMaker {
         	// going to go thrugh and fill C for size n
         	// j <= n
         	for(int j = 0; j < n; j++){
-        		C[j] = findOptiamalSol(j, d[i]);
+        		C[j] = findOptiamalSol(i, j, d, C, A);
         	}
         }
         
@@ -50,11 +52,12 @@ public class ChangeMaker {
     }
 
     // finding optimal sol recursivly and solving for C[j]
-    private static int findOptiamalSol(int j, int [] C, int di){
+    private static int findOptiamalSol(int i, int j, int []d, int [] C, int [] A){
     	if(j != 0 && j > 0){
-    		if(j >= di){
+    		if(j >= d[i]){
     			// add for loop here?
-    			return 1 + Math.min(C[j-di]);
+                A[j] = i;
+    			return 1 + Math.min(C[j-d[i]]);
     		}
     		else{
     			// if j<di, then the C[j-di] can’t be the min value and 
