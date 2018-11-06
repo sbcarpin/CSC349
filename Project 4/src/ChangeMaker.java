@@ -11,6 +11,7 @@
 
 import java.util.Scanner;
 import java.io.*;
+import java.lang.Math;
 
 public class ChangeMaker {
 
@@ -28,7 +29,20 @@ public class ChangeMaker {
     	//array C[0...n] to hold cj vals
     	//goal get C[n]
         int [] C = new int[n-1];
+
+        // A[j] info saved when computing C[j]
         int [] A = new int[];
+
+        //for going through d array
+        for(int i = 0; i < n; i++){
+
+        	// going to go thrugh and fill C for size n
+        	// j <= n
+        	for(int j = 0; j < n; j++){
+        		C[j] = findOptiamalSol(i, j, d, C, A);
+        	}
+        }
+        
 
 
         return C;
@@ -37,8 +51,24 @@ public class ChangeMaker {
         n amount*/
     }
 
-    private static void findOptiamalSol(){
+    // finding optimal sol recursivly and solving for C[j]
+    private static int findOptiamalSol(int i, int j, int []d, int [] C, int [] A){
+    	if(j != 0 && j > 0){
+    		if(j >= d[i]){
+    			// add for loop here?
+                A[j] = i;
+    			return 1 + Math.min(C[j-d[i]]);
+    		}
+    		else{
+    			// if j<di, then the C[j-di] can’t be the min value and 
+    			//thus shouldn’t be compared/checked
+    			return
+    		}
+    	}
 
+    	// we return 0 because if the if statement does not get executed,
+    	// it usually means it is zero
+    	return 0;
     }
 
 }
