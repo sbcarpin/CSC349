@@ -9,6 +9,9 @@
  * using the min # of coins. No limit to # of coins of any di. 
  */
 
+//hello there
+//k is number of coin denominations options
+
 import java.util.Scanner;
 import java.io.*;
 import java.lang.Math;
@@ -42,8 +45,6 @@ public class ChangeMaker {
         		C[j] = findOptiamalSol(i, j, d, C, A);
         	}
         }
-        
-
 
         return C;
         /*returns an array containing the count of coins for 
@@ -53,16 +54,34 @@ public class ChangeMaker {
 
     // finding optimal sol recursivly and solving for C[j]
     private static int findOptiamalSol(int i, int j, int []d, int [] C, int [] A){
-    	if(j != 0 && j > 0){
+    	// declares a minimum val for the loop below so it always saves min
+        int minimum = 1;
+
+        // DOES K MAKE SENSE? 
+        // declares k by the size of d the size is = to the num of coin deminations
+        int k = sizeof(d);
+
+        if(j != 0 && j > 0){
     		if(j >= d[i]){
-    			// add for loop here?
+    		
+                // CHECK THIS AREA
+                if(i >= 1){
+                  for(int z = i; z <= k; z++){
+                    //compares the last minimum and then stores 
+                    //  whatever is smallest
+                    minimum = Math.min(C[j-d[i]], minimum);
+                    }  
+                }
+                
                 A[j] = i;
-    			return 1 + Math.min(C[j-d[i]]);
+    			return 1 + minimum;
     		}
     		else{
     			// if j<di, then the C[j-di] can’t be the min value and 
     			//thus shouldn’t be compared/checked
-    			return
+                // CHECK THIS
+                // should it return 1 if it isn't going to be compared?
+    			return 1;
     		}
     	}
 
