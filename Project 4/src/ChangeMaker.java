@@ -58,7 +58,7 @@ public class ChangeMaker {
     			// add for loop here?
                 A[j] = i;
     			return 1 + Math.min(C[j-d[i]]);
-    		}
+    		}-p
     		else{
     			// if j<di, then the C[j-di] can’t be the min value and 
     			//thus shouldn’t be compared/checked
