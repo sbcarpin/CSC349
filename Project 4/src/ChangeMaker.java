@@ -33,7 +33,9 @@ public class ChangeMaker {
     	//goal get C[n]
         int [] C = new int[n-1];
 
-        // A[j] info saved when computing C[j]
+        // A[j] info saved when computing C[j] (choice that was made)
+        // save the i value representing the d[i] coin that was computing the min of all C[j -d[i]]
+        // save the index
         int [] A = new int[];
 
         //for going through d array
@@ -59,28 +61,28 @@ public class ChangeMaker {
 
         // DOES K MAKE SENSE? 
         // declares k by the size of d the size is = to the num of coin deminations
-        int k = sizeof(d);
+        int k = d.length;
 
-        if(j != 0 && j > 0){
-    		if(j >= d[i]){
-    		
+
+        // DO WE NEED THIS OUTER IF STATEMENT SINCE SHE COMMENTED TO AVOIDED CHECKING THE J <0 CASE
+        //if(j != 0 && j > 0){
+    		if(j >= d[i]) {
+
                 // CHECK THIS AREA
-                if(i >= 1){
-                  for(int z = i; z <= k; z++){
-                    //compares the last minimum and then stores 
-                    //  whatever is smallest
-                    minimum = Math.min(C[j-d[i]], minimum);
-                    }  
+                if (i >= 1) {
+                    for (int z = i; z <= k; z++) {
+                        //compares the last minimum and then stores
+                        //  whatever is smallest
+                        minimum = Math.min(C[j - d[i]], minimum);
+                    }
                 }
-                
+
                 A[j] = i;
-<<<<<<< HEAD
-    			return 1 + Math.min(C[j-d[i]]);
-    		}-p
-=======
-    			return 1 + minimum;
-    		}
->>>>>>> 9f1f24f3f62e03920b47c42d347100060bc1557d
+
+                //return 1 + Math.min(C[j-d[i]]);
+                return 1 + minimum;
+            }
+
     		else{
     			// if j<di, then the C[j-di] can’t be the min value and 
     			//thus shouldn’t be compared/checked
@@ -88,7 +90,7 @@ public class ChangeMaker {
                 // should it return 1 if it isn't going to be compared?
     			return 1;
     		}
-    	}
+    	//}
 
     	// we return 0 because if the if statement does not get executed,
     	// it usually means it is zero
