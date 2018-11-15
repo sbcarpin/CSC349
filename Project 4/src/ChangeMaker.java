@@ -19,7 +19,8 @@ import java.lang.Math;
 public class ChangeMaker {
 
     public static void main(String[] args) {
-
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Enter the number of coin-denominations and the set of coin values: ");
     }
 
     /* change_DPmmethod should implement a dynamic programming 
