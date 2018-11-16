@@ -9,7 +9,6 @@
  * using the min # of coins. No limit to # of coins of any di.
  */
 
-//hello there
 //k is number of coin denominations options
 
 import java.util.Scanner;
@@ -44,12 +43,30 @@ public class ChangeMaker {
             System.out.println("Amount: " + n);
             //Optimal distribution:
             //Optimal coin count:
-            //change_DP(n, d);
+
+            int[] x = change_DP(n, d);
+            printOut(x, d);
             
-            System.out.println("Greedy");
-            change_greedy(n,d);
+            System.out.println("Greedy algorithm results");
+            int [] y = change_greedy(n,d);
+            printOut(y, d);
         }
         //check how to exit or what to do when negative
+    }
+
+    private static void printOut(int a [], int d []){
+        int count = 0;
+        System.out.println("Optimal distribution: ");
+        for(int i = 0; i < d.length; i++){
+            System.out.println(a[i] + "*" + d[i] + "c");
+            if(i != (d.length-2)){
+                System.out.print("+");
+            }
+            count++;
+        }
+
+        System.out.println("Optimal coin count: " + count);
+
     }
     
     /* change_DPmmethod should implement a dynamic programming
@@ -61,38 +78,38 @@ public class ChangeMaker {
         
         //array C[0...n] to hold cj vals
         //goal get C[n]
-        int [] C = new int[n-1];
+        int [] C = new int[n+1];
         
         // A[j] info saved when computing C[j] (choice that was made)
         // save the i value representing the d[i] coin that was computing the min of all C[j -d[i]]
         // save the index
-        int [] A = new int[n-1];
+        int [] A = new int[n+1];
+        int k = d.length;
+        int [] B = new int[k];
+
+        // A and C are parallel
         
         //for going through d array
-        for(int i = 0; i < n; i++){
-            
+        for(int i = 0; i < k; i++){
             // going to go thrugh and fill C for size n
             // j <= n
             C[0] = 0;
-            
             for(int j = 0; j < n; j++){
-                C[j] = findOptiamalSol(i, j, d, C, A);
+                C[j] = findOptiamalSol(i, j, k, d, C, A, B);
             }
         }
-        
-        return C;
+        return B;
         /*returns an array containing the count of coins for
          each di-denomination to be used when making change for the given
          n amount*/
     }
     
     // finding optimal sol recursivly and solving for C[j]
-    private static int findOptiamalSol(int i, int j, int []d, int [] C, int [] A){
+    private static int findOptiamalSol(int i, int j, int k, int []d, int [] C, int [] A, int [] B){
         // declares a minimum val for the loop below so it always saves min
         int minimum = 1;
         
         // declares k by the size of d the size is = to the num of coin deminations
-        int k = d.length;
         
         //if(j != 0 && j > 0){
         if(j >= d[i]) {
@@ -107,6 +124,7 @@ public class ChangeMaker {
             }
             
             A[j] = i;
+            B[j] += 1;
             
             //return 1 + Math.min(C[j-d[i]]);
             return 1 + minimum;
@@ -133,9 +151,7 @@ public class ChangeMaker {
         /*Find Highest Demno*/
         int j = 0;
         //C[0] = 0;
-        
-        //delete this comment
-        //oh no
+
         while(n > 0){
             
             // if n can hold that value
@@ -144,7 +160,6 @@ public class ChangeMaker {
                 n -= d[j];
                 //A[j] += j;
                 C[j] += 1;
-                // C?
             }
             else{
                 j++;
