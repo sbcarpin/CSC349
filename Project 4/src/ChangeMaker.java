@@ -19,8 +19,40 @@ import java.lang.Math;
 public class ChangeMaker {
 
     public static void main(String[] args) {
+
+        //CANT REDFINE IT - NO "NEW" OBJECT
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Enter the number of coin-denominations and the set of coin values: ");
+
+        int num_dem = keyboard.nextInt();
+
+        int set_coin;
+        int d[] = new int [];
+        int n = 1;
+
+        for(int i = num_dem-1; i == 0; i--){
+            set_coin = keyboard.nextInt();
+            d[i] = set_coin;
+        }
+
+
+        while(n != 0) {
+
+            do {
+                System.out.println("Enter a positive amount to be changed (enter 0 to quit): ");
+                n = keyboard.nextInt();
+            } while(n > 0);
+            change_DP(n, d);
+        }
+        //check how to exit or what to do when negative
+
+        System.out.println(n);
+
+
+        System.out.println("Thanks for playing. Good Bye.");
+        System.exit(0);
+
+
     }
 
     /* change_DPmmethod should implement a dynamic programming 
@@ -37,13 +69,15 @@ public class ChangeMaker {
         // A[j] info saved when computing C[j] (choice that was made)
         // save the i value representing the d[i] coin that was computing the min of all C[j -d[i]]
         // save the index
-        int [] A = new int[];
+        int [] A = new int[n-1];
 
         //for going through d array
         for(int i = 0; i < n; i++){
 
         	// going to go thrugh and fill C for size n
         	// j <= n
+            C[0] = 0;
+
         	for(int j = 0; j < n; j++){
         		C[j] = findOptiamalSol(i, j, d, C, A);
         	}
@@ -60,12 +94,10 @@ public class ChangeMaker {
     	// declares a minimum val for the loop below so it always saves min
         int minimum = 1;
 
-        // DOES K MAKE SENSE? 
+        //
         // declares k by the size of d the size is = to the num of coin deminations
         int k = d.length;
 
-
-        // DO WE NEED THIS OUTER IF STATEMENT SINCE SHE COMMENTED TO AVOIDED CHECKING THE J <0 CASE
         //if(j != 0 && j > 0){
     		if(j >= d[i]) {
 
