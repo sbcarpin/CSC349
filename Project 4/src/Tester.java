@@ -10,7 +10,7 @@ public class Tester {
         int[] dp, greedy;
         int matches;
         int set = 0;
-        
+
         System.out.println("Testing change_DP and change_greedy algorithms");
         for (int i = 0; i < 5; i++) {
             //increment set and reinitialize matches
