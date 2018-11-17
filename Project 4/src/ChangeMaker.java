@@ -38,16 +38,16 @@ public class ChangeMaker {
             System.out.println("DP algorithm results");
             
             int[] x = change_DP(n, d);
-            printOut(n, x, d);
+            printOut(n, x, d, k);
             
             System.out.println("Greedy algorithm results");
             int [] y = change_greedy(n,d);
-            printOut(n, y, d);
+            printOut(n, y, d, k);
         }
         //check how to exit or what to do when negative
     }
     
-    private static void printOut(int n, int a [], int d []){
+    private static void printOut(int n, int a [], int d [], int k){
         System.out.println("Amount: " + n);
         int count = 0;
         int print = 0;
@@ -57,13 +57,13 @@ public class ChangeMaker {
             if(a[i] > 0) {
                 System.out.print(a[i] + "*" + d[i] + "c");
                 print += a[i];
-            }
-            if(print != count && a[i] > 0 && (i != a.length - 1)){
-                System.out.print(" + ");
+                if(i != k-1) {
+                    //if(print != count && a[i] > 0 && (i != a.length - 1)){
+                    System.out.print(" + ");
+                }
             }
         }
-        for(int i = 0; i < a.length; i++)
-        {
+        for(int i = 0; i < a.length; i++) {
             count += a[i];
         }
         System.out.println("\nOptimal coin count: " + count);
@@ -119,3 +119,5 @@ public class ChangeMaker {
         return C;
     }
 }
+
+
