@@ -3,56 +3,69 @@ public class Tester {
         int[] dp, greedy;
         int matches;
         int set = 0;
-
+        
         System.out.println("Testing change_DP and change_greedy algorithms");
         for (int i = 0; i < 5; i++) {
             //increment set and reinitialize matches
             set++;
             matches = 0;
-            for (int j = 0; j <= 200; j++) {
+            for (int j = 0; j <= 200; j++) { //amount of tests
                 if(set == 1)
                 {
                     int[] d = { 100, 50, 25, 10, 5, 1 };
                     dp = ChangeMaker.change_DP(j + 1, d);
-                    greedy = ChangeMaker.change_greedy(j + 1, d);
-                    matches = compare(dp, greedy, j, matches, set);
+                    greedy = ChangeMaker.change_greedy(j, d);
+                    matches = compare(set, matches, dp, greedy, j);
                 }
                 if(set == 2)
                 {
                     int[] d = { 100, 50, 20, 15, 10, 5, 3, 2, 1 };
                     dp = ChangeMaker.change_DP(j + 1, d);
                     greedy = ChangeMaker.change_greedy(j + 1, d);
-                    matches = compare(dp, greedy, j, matches, set);
+                    matches = compare(set, matches, dp, greedy, j);
                 }
                 if(set == 3)
                 {
                     int[] d = { 64, 32, 16, 8, 4, 2, 1 };
                     dp = ChangeMaker.change_DP(j + 1, d);
                     greedy = ChangeMaker.change_greedy(j + 1, d);
-                    matches = compare(dp, greedy, j, matches, set);
+                    matches = compare(set, matches, dp, greedy, j);
                 }
                 if(set == 4)
                 {
                     int[] d = { 100, 50, 25, 10, 1 };
                     dp = ChangeMaker.change_DP(j + 1, d);
                     greedy = ChangeMaker.change_greedy(j + 1, d);
-                    matches = compare(dp, greedy, j, matches, set);
+                    matches = compare(set, matches, dp, greedy, j);
                 }
                 if(set == 5)
                 {
                     int[] d = { 66, 35, 27, 18, 10, 1 };
                     dp = ChangeMaker.change_DP(j + 1, d);
                     greedy = ChangeMaker.change_greedy(j + 1, d);
-                    matches = compare(dp, greedy, j, matches, set);
+                    matches = compare(set, matches, dp, greedy, j);
                 }
             }
         }
     }
-    private static int compare(int[] dp, int[] greedy, int Tests, int Matches, int set){
+    private static int compare( int set, int matches, int[] dp, int[] greedy, int tests){
+        boolean check = true;
+        for(int i = 0; i < dp.length; i++)      //check each index of the arrays
+        {
+            if(dp[i] != greedy[i])
+                check = false;
+        }
+        //increment if arrays are identical
+        if(check) {
+            matches++;
+        }
+        //output result when we reach 200 tests
+        if(tests == 200) {
+            System.out.println("Testing set " + set + ": " + (matches - 1) + " matches in 200 tests");
+        }
+        return matches;
         
-
+        
     }
-
-
-
 }
+
