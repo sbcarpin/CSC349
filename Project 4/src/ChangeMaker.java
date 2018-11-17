@@ -22,17 +22,19 @@ public class ChangeMaker {
         }
 
         while(true) {
+            System.out.println();
             System.out.println("Enter a positive amount to be changed (enter 0 to quit): ");
             int n = keyboard.nextInt();
             if (n == 0) {
                 System.out.println("Thanks for playing. Good Bye.");
                 System.exit(0);
             } else if (n > 0) {
+                System.out.println();
                 System.out.println("DP algorithm results");
-
                 int[] x = change_DP(n, d);
                 printOut(n, x, d, k);
 
+                System.out.println();
                 System.out.println("Greedy algorithm results");
                 int[] y = change_greedy(n, d);
                 printOut(n, y, d, k);
@@ -63,24 +65,25 @@ public class ChangeMaker {
             count += a[i];
         }
         System.out.println("\nOptimal coin count: " + count);
+        System.out.println();
     }
 
-    public static int[] change_DP(int n, int []d){
-        int [] C = new int[n+1];
-        int [] A = new int[n+1];
+    public static int[] change_DP(int n, int []d) {
+        int[] C = new int[n + 1];
+        int[] A = new int[n + 1];
         int k = d.length;
-        int [] B = new int[k];
+        int[] B = new int[k];
         C[0] = 0;
 
-        for(int j = 1; j < n + 1; j++){
+        for (int j = 1; j < n + 1; j++) {
             int min = Integer.MAX_VALUE; //min will always be greater first
             int i_val = -1;
 
-            for(int i = 0; i < k; i++){
-                if(j >= d[i]) {
-                    if(min > C[j - d[i]]){
-                            min = (C[j - d[i]]);
-                            i_val = i;
+            for (int i = 0; i < k; i++) {
+                if (j >= d[i]) {
+                    if (min > C[j - d[i]]) {
+                        min = (C[j - d[i]]);
+                        i_val = i;
                     }
                 }
             }
@@ -88,11 +91,16 @@ public class ChangeMaker {
             C[j] = min + 1;
         }
 
-        while(n > 0){
-            B[A[n]] += 1;
-            n = n - d[A[n]];
+        while (n > 0) {
+            if(B[A[n]] >= 0){
+                B[A[n]] += 1;
+                n = n - d[A[n]];
+            }
+            else{
+                System.out.print("Error Inputs Entered");
+                System.exit(1);
+            }
         }
-
         return B;
     }
 
