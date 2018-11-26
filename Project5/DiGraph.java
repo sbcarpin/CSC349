@@ -1,5 +1,5 @@
 /*Project 5
- *November 25, 2018
+ *November 30, 2018
  *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
  *Aurora Paz - aepaz@calpoly.edu
  *Natalie Miller - nmille35@calpoly.edu
@@ -40,7 +40,8 @@ new DiGraph(int N){
 public addEdge(int from, int to){
 
 	//the edge should not be added if it already exists: needs to be checked before adding
-
+	//if already exislts - do not add
+	//if()
 
 	//vertex-numbers are given in natural numbering(starting with 1) so you should “turn
 	// ”them to Java-indexing to reflect correct connection. No need for validity check
@@ -59,17 +60,30 @@ public deleteEdge(int from, int to){
 }
 
 // computes and returns edges of graph
-public edgeCount(){
+public int edgeCount(){
+	int edge_num;
 
+	return edge_num;
 }
 
 
-// returns 
-public vertexCount(){
+// returns number of vetices (its the arrays length)
+public int vertexCount(){
+    int num_vert;
 
+    return num_vert;
 }
 
+//outputs the graph in the format provide din handout
+public print(){
+    int num_vertix;
 
+    for(int i =0; i <= num_vertix; i++){
+        System.out.println((i+1) + " is connected to: " );
+        //outputs a line: i is connected to: x1, ..., xk
+        //where x1,..., xk are vertices that are adjacent to i.
+    }
+}
 
 
 }
