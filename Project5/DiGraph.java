@@ -41,6 +41,32 @@ public addEdge(int from, int to){
 
 	//the edge should not be added if it already exists: needs to be checked before adding
 
+
+	//vertex-numbers are given in natural numbering(starting with 1) so you should “turn
+	// ”them to Java-indexing to reflect correct connection. No need for validity check
+
+
+}
+
+//two parameters identify vertices representing the edge that needs to be deleted from the graph
+// (to vertex is removed from vertex’s neighbor).
+public deleteEdge(int from, int to){
+	//nothing done if edge does not exist (no error message)
+
+	//vertex-numbers are given in natural numbering(starting with 1) so you should “turn
+	// ”them to Java-indexing to reflect correct connection. No need for validity check
+
+}
+
+// computes and returns edges of graph
+public edgeCount(){
+
+}
+
+
+// returns 
+public vertexCount(){
+
 }
 
 
