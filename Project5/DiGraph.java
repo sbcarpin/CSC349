@@ -69,11 +69,16 @@ public class DiGraph {
 
     }
 
+    //https://www.geeksforgeeks.org/count-number-edges-undirected-graph/
     // computes and returns edges of graph
     public int edgeCount(){
-	    int edge_num;
+	    int edge_num = 0;
 
-	    return edge_num;
+	    for(int i = 0; i < V; i++){
+	    	sum += vertex[i].size;
+	    }
+	   	// since it will transverse each edge twice
+	    return edge_num/2;
     }
 
 
