@@ -5,6 +5,9 @@
  *Natalie Miller - nmille35@calpoly.edu
  */
 
+
+// Good Example: http://www.cs.cornell.edu/courses/cs211/2006fa/Lectures/L22-More%20Graphs/Digraph.java
+
 import java.util.Scanner;
 import java.io.*;
 
@@ -41,7 +44,10 @@ public class DiGraph {
 
 	//the edge should not be added if it already exists: needs to be checked before adding
 	//if already exislts - do not add
-	//if()
+	if(){
+
+	}
+
 
 	//vertex-numbers are given in natural numbering(starting with 1) so you should “turn
 	// ”them to Java-indexing to reflect correct connection. No need for validity check
