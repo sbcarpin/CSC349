@@ -41,11 +41,14 @@ public class DiGraph {
 	//two parameters identify vertices representing the edge that needs to be added to the graph
 	// (to vertex is added as from vertex’s neighbor).
 	public addEdge(int from, int to){
+		//https://algs4.cs.princeton.edu/42digraph/Digraph.java.html
+		checkVertex(from);
+		checkVertex(to);
 
 	//the edge should not be added if it already exists: needs to be checked before adding
 	//if already exislts - do not add
 	if(){
-
+		vertex[from].add(to);
 	}
 
 
@@ -59,6 +62,7 @@ public class DiGraph {
     // (to vertex is removed from vertex’s neighbor).
     public deleteEdge(int from, int to){
 	    //nothing done if edge does not exist (no error message)
+
 
 	    //vertex-numbers are given in natural numbering(starting with 1) so you should “turn
 	    // ”them to Java-indexing to reflect correct connection. No need for validity check
@@ -89,5 +93,12 @@ public class DiGraph {
         //outputs a line: i is connected to: x1, ..., xk
         //where x1,..., xk are vertices that are adjacent to i.
         }
+    }
+
+	
+	//https://algs4.cs.princeton.edu/42digraph/Digraph.java.html
+    private void checkVertex(int v){
+    	if(v < 0 || v >= V)
+    		throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 }
