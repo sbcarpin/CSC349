@@ -24,10 +24,8 @@ public class DiGraph {
 	// A constructor with one int type parameter for N. This constructor creates and
 	// initializes the instance variable-array
 
-	//WHERE DID THIS "NEW" BELONG TO??
-	//new
 
-	DiGraph(int N) {
+	new DiGraph(int N) {
 		vertex = new LinkedList[N - 1];
 
 		// Create a new list for each vertex 
