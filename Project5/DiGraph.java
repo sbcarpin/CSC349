@@ -124,7 +124,11 @@ public class DiGraph {
          int[] indegrees = indegrees();
          int[] A = new int [N];
          Queue<Integer> q = new LinkedList<>();
-         
+         for(int u = 0; u < N; u++){
+             if(indegrees[u] == 0){
+                 q.en
+             }
+         }
 
 
          return A;
