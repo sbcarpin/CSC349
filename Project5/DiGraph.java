@@ -163,7 +163,7 @@ public class DiGraph {
             }
         }
 
-        /*Look up how to use illegal argument exceptions*/
+        /*LOOK UP ILLEGAL ARG EXCEPTIONS*/
         if(i != N+1) {
            //IllegalArgumentException("Cyclic cycle");
         }
