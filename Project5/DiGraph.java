@@ -102,7 +102,15 @@ public class DiGraph {
      private int[] indegrees() {
         int N = arr.length;
         int[] indegrees = new int [N];
+        for(int i = 0; i < N; i++){
+            indegrees[i] = 0;
+        }
 
+        for(int u = 0; u < N; u++){
+            for(int z = 0; z < arr[u].size(); z++){
+                indegrees[z] = indegrees[z] + 1;
+            }
+        }
 
         return indegrees;
      }
