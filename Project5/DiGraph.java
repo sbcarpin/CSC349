@@ -102,33 +102,52 @@ public class DiGraph {
     
     //returns an array of integers representing the indegrees of all vertices in the graph
     //the i-th integer in the resulting array is the indegree of the i-th vertex.
-    private int[] indegrees() {
+     private int[] indegrees() {
         int N = arr.length;
         int[] indegrees = new int [N];
         for(int i = 0; i < N; i++){
             indegrees[i] = 0;
         }
-        
+
         for(int u = 0; u < N; u++){
             for(int z = 0; z < arr[u].size(); z++){
                 indegrees[z] = indegrees[z] + 1;
             }
         }
-        
+
         return indegrees;
     }
-    
+
     //returns an array containing the list of topologically sorted vertices
     // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
     public int[] topSort() {
+        int u, i;
         int N = arr.length;
         int[] indegrees = indegrees();
-        int[] topsort = new int [5];
-        
-        return topsort;
+        int[] A = new int [N];
+        Queue<Integer> q = new LinkedList<>();
+        for(u = 0; u < N; u++){
+            if(indegrees[u] == 0){
+                q.add(u);
+            }
+        }
+        i = 1;
+        while(!q.isEmpty()){
+            u = q.remove();
+            A[i] = u;
+            i = i+1;
+            for (int v = 0; v < arr.length; v++) {
+                indegrees[v] = indegrees[v]-1;
+                if (indegrees[v] == 0){
+                    q.remove();
+                }
+            }
+        }
+
+        return A;
         //If the graph is cyclic, this method must throw IllegalArgumentException type exception
         //(read the note on top of the last page of your Topological Sort lecture handout).
-        
+
     }
 }
 
