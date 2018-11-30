@@ -155,9 +155,9 @@ public class DiGraph {
             
             /*ASK ABOUT THE FOR LOOP ITS CONFUSING - NOT RIGHT*/
             for (int v = 0; v < arr.length; v++) {
-                indegrees[v] = indegrees[v]-1;
-                if (indegrees[v] == 0){
-                    q.add(v + 1);
+                indegrees[arr[u].get(v)]--;
+                if (indegrees[arr[u].get(v)] == 0){
+                    q.add(arr[u].get(v) + 1);
                 }
             }
         }
