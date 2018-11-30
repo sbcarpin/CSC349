@@ -10,6 +10,8 @@
 
 import java.util.LinkedList;
 import java.io.*;
+import java.util.Queue;
+import java.util.*;
 
 //a directed graph as an array of Adjacency Linked Lists.
 public class DiGraph {
@@ -118,11 +120,30 @@ public class DiGraph {
      //returns an array containing the list of topologically sorted vertices
      // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
      public int[] topSort() {
+         int u, i;
          int N = arr.length;
          int[] indegrees = indegrees();
-         int[] topsort = new int [5];
+         int[] A = new int [N];
+         Queue<Integer> q = new LinkedList<>();
+         for(u = 0; u < N; u++){
+             if(indegrees[u] == 0){
+                 q.add(u);
+             }
+         }
+         i = 1;
+         while(!q.isEmpty()){
+             u = q.remove();
+             A[i] = u;
+             i = i+1;
+             for (int v = 0; v < arr.length; v++) {
+                indegrees[v] = indegrees[v]-1;
+                if (indegrees[v] == 0){
+                    q.remove();
+                }
+             }
+         }
 
-         return topsort;
+         return A;
      //If the graph is cyclic, this method must throw IllegalArgumentException type exception
      //(read the note on top of the last page of your Topological Sort lecture handout).
 
