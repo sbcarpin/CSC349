@@ -110,10 +110,13 @@ public class DiGraph {
         }
         
         for(int u = 0; u < N; u++){
-            for(int z = 0; z < arr[u].size(); z++){
-                indegrees[z] = indegrees[z] + 1;
-            }
+            //for(int z = 0; z < arr[u].; z++){
+            //indegrees[z] = indegrees[z] + 1;
+            //}
+            
+            indegrees[u] = arr[u].size();
         }
+        //System.out.println("Indegress: " + Arrays.toString(indegrees));
         
         return indegrees;
     }
@@ -128,21 +131,25 @@ public class DiGraph {
         Queue<Integer> q = new LinkedList<>();
         for(u = 0; u < N; u++){
             if(indegrees[u] == 0){
-                q.add(u);
+                q.add(u); //enqueue?
             }
         }
-        i = 1;
+        i = 0;
         while(!q.isEmpty()){
             u = q.remove();
             A[i] = u;
+            System.out.println("A: " + Arrays.toString(A));
+            
             i = i+1;
             for (int v = 0; v < arr.length; v++) {
                 indegrees[v] = indegrees[v]-1;
                 if (indegrees[v] == 0){
-                    q.remove();
+                    q.add(v);
                 }
             }
         }
+        
+        //System.out.println(Arrays.toString(A));
         
         return A;
         //If the graph is cyclic, this method must throw IllegalArgumentException type exception

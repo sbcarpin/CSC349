@@ -6,7 +6,7 @@
  */
 
 import java.util.Scanner;
-import java.io.*;
+import java.util.*;
 
 public class DiGraphTest {
     
@@ -41,21 +41,21 @@ public class DiGraphTest {
             
             switch(input){
                 case 'q':
-                    System.out.println("Quiting... Goodbye.");
+                    System.out.println("Goodbye.");
                     System.exit(0);
                 case 'a':
                     System.out.println("Enter two numbers please: ");
                     num1 = keyboard.nextInt();
                     num2 = keyboard.nextInt();
                     //System.out.println("first num: " + num1 + " " + "second num: " + num2);
-                    diobject.addEdge(num1, num2); // why it no work with static.. whyy
+                    diobject.addEdge(num1, num2);
                     break;
                 case 'd':
                     System.out.println("Enter two numbers please: ");
                     num1 = keyboard.nextInt();
                     num2 = keyboard.nextInt();
                     //System.out.println("first num: " + num1 + " " + "second num: " + num2);
-                    diobject.deleteEdge(num1, num2); // why it no work with static.. whyy
+                    diobject.deleteEdge(num1, num2);
                     break;
                 case 'e':
                     System.out.print("Number of edges is ");
@@ -69,9 +69,10 @@ public class DiGraphTest {
                     System.out.println("The graph is the following: ");
                     diobject.print();
                     break;
+                    // PART 2
                 case 't':
                     System.out.println("The graph is the following: ");
-                    //diobject.topSort();
+                    System.out.println(Arrays.toString(diobject.topSort()));
                     break;
                 default:
                     System.out.println("Invalid menu choice. Please try again.");
