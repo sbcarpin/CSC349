@@ -108,16 +108,13 @@ public class DiGraph {
     private int[] indegrees() {
         int N = arr.length;
         int[] indegrees = new int [N];
-        for(int i = 0; i < N; i++){
-            indegrees[i] = 0;
-        }
 
-        for(int u = 0; u < N; u++){
-            indegrees[u] = arr[u].size();
-            //for(int z = 0; z < arr[u].; z++){
-            //indegrees[z] = indegrees[z] + 1;
-            //}
+        for (int j = 0; j < N; j++){
+            for (int z = 0; z < arr[j].size(); z++){
+                int v = arr[j].get(z);
+                indegrees[v] += 1;
         }
+    }
         //System.out.println("Indegress: " + Arrays.toString(indegrees));
 
         return indegrees;
@@ -130,36 +127,35 @@ public class DiGraph {
     //returns an array containing the list of topologically sorted vertices
     // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
     public int[] topSort() {
-        int u;
         int N = arr.length;
         int[] indegrees = indegrees();
         int[] A = new int [N];
 
-        Queue<Integer> q = new LinkedList<>();
+        LinkedList<Integer> q = new LinkedList<>();
 
-        for(u = 0; u < N; u++){
+        for(int u = 0; u < N; u++){
             if(indegrees[u] == 0){
-                /*Adds 6 and 1 first since they have nothing. Print out backwards?*/
-                System.out.println("q add: " + u);
-                q.add(u + 1);
+                q.addLast(u);
             }
         }
 
+        int u;
         int i = 0;
         while(!q.isEmpty()){
-            u = q.remove();
-            A[i] = u;
+            u = q.removeFirst();
+            A[i] = u + 1;
             System.out.println("A: " + Arrays.toString(A));
 
             i += 1;
+            for (int j = 0; j < arr[u].size(); j++){
+                int v = arr[u].get(j);
+                indegrees[v]--;
 
-            /*ASK ABOUT THE FOR LOOP ITS CONFUSING - NOT RIGHT*/
-            for (int v = 0; v < arr[i].size(); v++) {
-                indegrees[arr[u].get(v)]--;
-                if (indegrees[arr[u].get(v)] == 0){
-                    q.add(arr[u].get(v) + 1);
+                if (indegrees[v] == 0){
+                    q.addLast(v);
                 }
             }
+
         }
 
         /*LOOK UP ILLEGAL ARG EXCEPTIONS*/
@@ -173,4 +169,5 @@ public class DiGraph {
 
     }
 }
+
 

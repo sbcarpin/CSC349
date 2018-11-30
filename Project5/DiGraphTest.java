@@ -15,7 +15,6 @@ public class DiGraphTest {
         
         Scanner keyboard = new Scanner(System.in);
         
-        try {
             System.out.println("Enter number of vertices: ");
             int num_vert = keyboard.nextInt();
             //input the number of vertices and define an object of DiGraph class.
@@ -35,6 +34,7 @@ public class DiGraphTest {
             
             //as long as the user does not enter "q" for quit keeo doing the below
             while (true) {
+                //try{
                 char input = keyboard.next().charAt(0);
                 String i = keyboard.nextLine();
                 
@@ -83,9 +83,10 @@ public class DiGraphTest {
                         break;
                 }
                 System.out.println("Choose one of the operations: ");
-            }
-        } catch (Exception e) {
-            /* System.out.println("Error: No such file."); */
+            //}
+            //catch (IllegalArgumentException e) {
+                //System.out.println(e.getMessage());
+            //}
         }
     }
 }
