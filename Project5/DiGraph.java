@@ -165,7 +165,7 @@ public class DiGraph {
 
         /*LOOK UP ILLEGAL ARG EXCEPTIONS*/
         if(i != N+1) {
-           //IllegalArgumentException("Cyclic cycle");
+            throw new IllegalArgumentException(String.format("Cyclic cycle"));
         }
 
         return A;
