@@ -33,9 +33,8 @@ public class DiGraphTest {
         while(true) {
             char input = keyboard.next().charAt(0);
             String i = keyboard.nextLine();
-            //char input = 'x';
             
-            System.out.println("String length: " + i.length());
+            //System.out.println("String length: " + i.length());
             if(i.length() != 0){
                 input = 'x'; // to go to default
             }
@@ -48,23 +47,23 @@ public class DiGraphTest {
                     System.out.println("Enter two numbers please: ");
                     num1 = keyboard.nextInt();
                     num2 = keyboard.nextInt();
-                    System.out.println("first num: " + num1 + " " + "second num: " + num2);
-                    //DiGraph.addEdge(num1, num2); // why it no work with static.. whyy
+                    //System.out.println("first num: " + num1 + " " + "second num: " + num2);
+                    diobject.addEdge(num1, num2); // why it no work with static.. whyy
                     break;
                 case 'd':
                     System.out.println("Enter two numbers please: ");
                     num1 = keyboard.nextInt();
                     num2 = keyboard.nextInt();
-                    System.out.println("first num: " + num1 + " " + "second num: " + num2);
+                    //System.out.println("first num: " + num1 + " " + "second num: " + num2);
                     diobject.deleteEdge(num1, num2); // why it no work with static.. whyy
                     break;
                 case 'e':
-                    System.out.println("Number of edges is: ");
-                    diobject.edgeCount();
+                    System.out.print("Number of edges is ");
+                    System.out.print(diobject.edgeCount() + "\n");
                     break;
                 case 'v':
-                    System.out.println("Number of vertices is: ");
-                    diobject.vertexCount();
+                    System.out.print("Number of vertices is ");
+                    System.out.print(diobject.vertexCount() + "\n");
                     break;
                 case 'p':
                     System.out.println("The graph is the following: ");
