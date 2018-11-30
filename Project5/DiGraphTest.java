@@ -28,17 +28,24 @@ public class DiGraphTest {
         System.out.println("- Topological sort (enter t)"); // PART 2
         System.out.println("- Quit (enter q)");
         int num1, num2;
-
-        // ***** ----  WE NEED TO GET ERROR MESSGE FOR WHEN "A # #"
-        // ONLY CAN RECEIVE A CHAR *** ------
+        char input;
 
         //as long as the user does not enter "q" for quit keeo doing the below
         while(true) {
-            char input = keyboard.next().charAt(0);
+            String i = keyboard.nextLine();
+            input = 0;
+
+            if(i.length() == 1){
+                input = i.charAt(0);
+            }
+
+
             if(input == 'q'){
                 System.out.println("Quiting... Goodbye.");
                 System.exit(0);
             }
+
+
 
             switch(input){
                 case 'a':
@@ -69,7 +76,7 @@ public class DiGraphTest {
                     break;
                 case 't':
                     System.out.println("The graph is the following: ");
-                    //diobject.topSort();
+                    diobject.topSort();
                     break;
                 default:
                     System.out.println("Invalid menu choice. Please try again.");
