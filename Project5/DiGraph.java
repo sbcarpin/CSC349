@@ -31,6 +31,8 @@ public class DiGraph {
     //two parameters identify vertices representing the edge that needs to be added to the graph
     // (to vertex is added as from vertex’s neighbor).
     public void addEdge(int from, int to) {
+        from -= 1;
+        to -= 1;
         //the edge should not be added if it already exists
         if (!arr[from].contains(to)) {
             arr[from].add(to);
@@ -46,6 +48,8 @@ public class DiGraph {
     // (to vertex is removed from vertex’s neighbor).
     public void deleteEdge(int from, int to) {
         int N = arr.length;
+        from -= 1;
+        to -= 1;
 
         //nothing done if edge does not exist (no error message)
         if(N > to || N > from){
