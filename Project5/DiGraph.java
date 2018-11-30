@@ -164,9 +164,6 @@ public class DiGraph {
         }
 
         return A;
-        //If the graph is cyclic, this method must throw IllegalArgumentException type exception
-        //(read the note on top of the last page of your Topological Sort lecture handout).
-
     }
 }
 

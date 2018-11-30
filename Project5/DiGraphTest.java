@@ -34,13 +34,11 @@ public class DiGraphTest {
             
             //as long as the user does not enter "q" for quit keeo doing the below
             while (true) {
-                //try{
                 char input = keyboard.next().charAt(0);
                 String i = keyboard.nextLine();
-                
-                //System.out.println("String length: " + i.length());
+
                 if (i.length() != 0) {
-                    input = 'x'; // to go to default
+                    input = 'x';
                 }
                 
                 switch (input) {
@@ -83,10 +81,7 @@ public class DiGraphTest {
                         break;
                 }
                 System.out.println("Choose one of the operations: ");
-            //}
-            //catch (IllegalArgumentException e) {
-                //System.out.println(e.getMessage());
-            //}
+    
         }
     }
 }
