@@ -15,7 +15,7 @@ import java.io.*;
 public class DiGraph {
 
     //One private instance variable: this is an array of linked lists (use Java’s LinkedListclass).
-    private static LinkedList<Integer>[] arr;
+    private LinkedList<Integer>[] arr;
 
     // A constructor with one int type parameter for N. creates and initializes the instance variable-array
     DiGraph(int N) {
@@ -29,7 +29,7 @@ public class DiGraph {
 
     //two parameters identify vertices representing the edge that needs to be added to the graph
     // (to vertex is added as from vertex’s neighbor).
-    public static void addEdge(int from, int to) {
+    public void addEdge(int from, int to) {
         //the edge should not be added if it already exists
         if (!arr[from].contains(to)) {
             arr[from].add(to);
@@ -43,7 +43,7 @@ public class DiGraph {
 
     //two parameters identify vertices representing the edge that needs to be deleted from the graph
     // (to vertex is removed from vertex’s neighbor).
-    public static void deleteEdge(int from, int to) {
+    public void deleteEdge(int from, int to) {
         //nothing done if edge does not exist (no error message)
 
         if(arr[from].contains(to)){
@@ -57,7 +57,7 @@ public class DiGraph {
 
     //https://www.geeksforgeeks.org/count-number-edges-undirected-graph/
     // computes and returns edges of graph
-    public static int edgeCount() {
+    public int edgeCount() {
         int edge_num = 0;
 
         for (int i = 0; i < arr.length; i++) {
@@ -69,12 +69,12 @@ public class DiGraph {
 
 
     // returns number of vetices (its the arrays length)
-    public static int vertexCount() {
+    public int vertexCount() {
         return arr.length;
     }
 
     //outputs the graph in the format provide din handout
-    public static void print(){
+    public void print(){
         for (int i = 0; i < arr.length; i++) {
             System.out.print((i + 1) + " is connected to: ");
             for(int j = 0; j < arr[i].size(); j++) {
@@ -99,7 +99,7 @@ public class DiGraph {
 
     //returns an array of integers representing the indegrees of all vertices in the graph
     //the i-th integer in the resulting array is the indegree of the i-th vertex.
-     private static int[] indegrees() {
+     private int[] indegrees() {
         int N = arr.length;
         int[] indegrees = new int [N];
 
@@ -109,8 +109,8 @@ public class DiGraph {
 
      //returns an array containing the list of topologically sorted vertices
      // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
-     public static int[] topSort() {
-         int topsort[5];
+     public int[] topSort() {
+         int[] topsort = new int [5];
 
          return topsort;
      //If the graph is cyclic, this method must throw IllegalArgumentException type exception

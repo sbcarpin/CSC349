@@ -17,7 +17,7 @@ public class DiGraphTest {
         int num_vert = keyboard.nextInt();
         //input the number of vertices and define an object of DiGraph class.
 
-        DiGraph object = new DiGraph(num_vert);
+        DiGraph diobject = new DiGraph(num_vert);
 
         System.out.println("Choose one of the following operations: ");
         System.out.println("- add edge (enter a)");
@@ -53,29 +53,29 @@ public class DiGraphTest {
                     num1 = keyboard.nextInt();
                     num2 = keyboard.nextInt();
                     System.out.println("first num: " + num1 + " " + "second num: " + num2);
-                    DiGraph.deleteEdge(num1, num2); // why it no work with static.. whyy
+                    diobject.deleteEdge(num1, num2); // why it no work with static.. whyy
                     break;
                 case 'e':
                     System.out.println("Number of edges is: ");
-                    DiGraph.edgeCount();
+                    diobject.edgeCount();
                     break;
                 case 'v':
                     System.out.println("Number of vertices is: ");
-                    DiGraph.vertexCount();
+                    diobject.vertexCount();
                     break;
                 case 'p':
                     System.out.println("The graph is the following: ");
-                    DiGraph.print();
+                    diobject.print();
                     break;
                 case 't':
                     System.out.println("The graph is the following: ");
-                    //DiGraph.topSort();
+                    //diobject.topSort();
                     break;
                 default:
                     System.out.println("Invalid menu choice. Please try again.");
                     break;
             }
-            System.out.println("Choose one of the following operations: ");
+            System.out.println("Choose one of the operations: ");
 
         }
     }
