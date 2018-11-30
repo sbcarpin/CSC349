@@ -46,7 +46,6 @@ public class DiGraph {
     public static void deleteEdge(int from, int to) {
         //nothing done if edge does not exist (no error message)
 
-        //*** DO WE NEED THIS IF STATEMENT IF WE JUST DELETE? ****
         if(arr[from].contains(to)){
             arr[from].remove(to);
         }
@@ -81,7 +80,7 @@ public class DiGraph {
             for(int j = 0; j < arr[i].size(); j++) {
                 System.out.print(arr[i].get(j));
                 if(arr[i].size() > 1 && j != arr[i].size()) {
-                    System.out.print(",");
+                    System.out.print(" , ");
                 }
                 //outputs a line: i is connected to: x1, ..., xk
                 //where x1,..., xk are vertices that are adjacent to i.
@@ -100,17 +99,23 @@ public class DiGraph {
 
     //returns an array of integers representing the indegrees of all vertices in the graph
     //the i-th integer in the resulting array is the indegree of the i-th vertex.
-    /*private int[] indegrees() {
+     private static int[] indegrees() {
+        int N = arr.length;
+        int[] indegrees = new int [N];
 
+
+        return indegrees;
      }
 
      //returns an array containing the list of topologically sorted vertices
      // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
-     public int[] topSort() {
+     public static int[] topSort() {
+         int topsort[5];
 
+         return topsort;
      //If the graph is cyclic, this method must throw IllegalArgumentException type exception
      //(read the note on top of the last page of your Topological Sort lecture handout).
 
-     }*/
+     }
 }
 
