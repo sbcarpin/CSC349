@@ -5,11 +5,6 @@
  *Natalie Miller - nmille35@calpoly.edu
  */
 
-// ----https://www.geeksforgeeks.org/graph-and-its-representations/
-// Good Example: http://www.cs.cornell.edu/courses/cs211/2006fa/Lectures/L22-More%20Graphs/Digraph.java
-
-//import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.util.LinkedList;
 import java.io.*;
 import java.util.*;
@@ -17,14 +12,12 @@ import java.lang.*;
 
 //a directed graph as an array of Adjacency Linked Lists.
 public class DiGraph {
-
     //One private instance variable: this is an array of linked lists (use Java’s LinkedListclass).
     private LinkedList<Integer>[] arr;
 
     // A constructor with one int type parameter for N. creates and initializes the instance variable-array
     DiGraph(int N) {
         arr = (LinkedList<Integer>[]) new LinkedList[N];
-
         // Create a new list for each vertex such that adjacent nodes can be stored
         for (int i = 0; i < N; i++) {
             arr[i] = new LinkedList<>();
@@ -40,8 +33,6 @@ public class DiGraph {
         if (!arr[from].contains(to)) {
             arr[from].add(to);
         }
-        System.out.println("(" + (from + 1) + "," + (to + 1) + ")" + " edge is now added to the graph");
-        //*** if it does exist do we output error message ****
     }
 
     //two parameters identify vertices representing the edge that needs to be deleted from the graph
@@ -61,8 +52,6 @@ public class DiGraph {
     //vertex-numbers are given in natural numbering(starting with 1) so you should “turn
     // ”them to Java-indexing to reflect correct connection. No need for validity check
 
-
-    //https://www.geeksforgeeks.org/count-number-edges-undirected-graph/
     // computes and returns edges of graph
     public int edgeCount() {
         int edge_num = 0;
@@ -70,7 +59,6 @@ public class DiGraph {
         for (int i = 0; i < arr.length; i++) {
             edge_num += arr[i].size();
         }
-        // since it will transverse each edge twice
         return edge_num;
     }
 
@@ -94,7 +82,6 @@ public class DiGraph {
         }
     }
 
-
     // ******---- PART 2 ------******
     // CHECK THIS OUT
     //https://www.geeksforgeeks.org/topological-sorting/
@@ -112,10 +99,8 @@ public class DiGraph {
             for (int z = 0; z < arr[j].size(); z++){
                 int v = arr[j].get(z);
                 indegrees[v] += 1;
+            }
         }
-    }
-        //System.out.println("Indegress: " + Arrays.toString(indegrees));
-
         return indegrees;
     }
 
@@ -139,8 +124,6 @@ public class DiGraph {
         while(!q.isEmpty()){
             u = q.removeFirst();
             A[i] = u + 1;
-            //System.out.println("A: " + Arrays.toString(A));
-
             i += 1;
             for (int j = 0; j < arr[u].size(); j++){
                 int v = arr[u].get(j);
@@ -150,10 +133,8 @@ public class DiGraph {
                     q.addLast(v);
                 }
             }
-
         }
 
-        /*LOOK UP ILLEGAL ARG EXCEPTIONS*/
         if(i != N) {
             throw new IllegalArgumentException("Cyclic cycle");
         }

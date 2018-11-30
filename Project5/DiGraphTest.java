@@ -51,6 +51,7 @@ public class DiGraphTest {
                         num2 = keyboard.nextInt();
                         //System.out.println("first num: " + num1 + " " + "second num: " + num2);
                         diobject.addEdge(num1, num2);
+                        System.out.println("(" + (num1 + 1) + "," + (num2 + 1) + ")" + " edge is now added to the graph");
                         break;
                     case 'd':
                         System.out.println("Enter two numbers please: ");
@@ -74,8 +75,14 @@ public class DiGraphTest {
                         // PART 2
                     case 't':
                         try{
-                            System.out.println("The graph is the following: ");
-                            System.out.println(Arrays.toString(diobject.topSort())); 
+                            System.out.print("The graph is the following: ");
+                            int arr2[] = diobject.topSort();
+                            int x;
+                            for (x = 0; x < arr2.length-1; x++) {
+                                System.out.print(arr2[x] + ",");
+                            }
+                            System.out.print(arr2[x]);
+                            System.out.print("\n"); 
                         }
                         catch(IllegalArgumentException e){
                             System.out.println(e);
