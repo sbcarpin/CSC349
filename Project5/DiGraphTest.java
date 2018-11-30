@@ -73,8 +73,13 @@ public class DiGraphTest {
                         break;
                         // PART 2
                     case 't':
-                        System.out.println("The graph is the following: ");
-                        System.out.println(Arrays.toString(diobject.topSort()));
+                        try{
+                            System.out.println("The graph is the following: ");
+                            System.out.println(Arrays.toString(diobject.topSort())); 
+                        }
+                        catch(IllegalArgumentException e){
+                            System.out.println(e);
+                        }
                         break;
                     default:
                         System.out.println("Invalid menu choice. Please try again.");

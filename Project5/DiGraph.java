@@ -47,16 +47,15 @@ public class DiGraph {
     //two parameters identify vertices representing the edge that needs to be deleted from the graph
     // (to vertex is removed from vertex’s neighbor).
     public void deleteEdge(int from, int to) {
-        int N = arr.length;
         from -= 1;
         to -= 1;
+        System.out.println("To: " + to + " from: " + from);
 
         //nothing done if edge does not exist (no error message)
-        if(N > to || N > from){
-            if(arr[from].contains(to)){
-                arr[from].remove(to);
-            }
+        if(arr[from].contains(to)){
+            arr[from].remove(new Integer (to));
         }
+        System.out.println("Edge Removed");
     }
 
     //vertex-numbers are given in natural numbering(starting with 1) so you should “turn
@@ -120,10 +119,6 @@ public class DiGraph {
         return indegrees;
     }
 
-    // YES THIS ONLINE WAY IS BADASS - DO THIS
-    // https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
-
-
     //returns an array containing the list of topologically sorted vertices
     // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
     public int[] topSort() {
@@ -144,7 +139,7 @@ public class DiGraph {
         while(!q.isEmpty()){
             u = q.removeFirst();
             A[i] = u + 1;
-            System.out.println("A: " + Arrays.toString(A));
+            //System.out.println("A: " + Arrays.toString(A));
 
             i += 1;
             for (int j = 0; j < arr[u].size(); j++){
@@ -159,7 +154,7 @@ public class DiGraph {
         }
 
         /*LOOK UP ILLEGAL ARG EXCEPTIONS*/
-        if(i != N+1) {
+        if(i != N) {
             throw new IllegalArgumentException("Cyclic cycle");
         }
 
