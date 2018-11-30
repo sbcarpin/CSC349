@@ -118,6 +118,8 @@ public class DiGraph {
      //returns an array containing the list of topologically sorted vertices
      // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
      public int[] topSort() {
+         int N = arr.length;
+         int[] indegrees = indegrees();
          int[] topsort = new int [5];
 
          return topsort;
