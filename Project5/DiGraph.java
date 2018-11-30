@@ -123,10 +123,14 @@ public class DiGraph {
         return indegrees;
     }
 
+    // YES THIS ONLINE WAY IS BADASS - DO THIS
+    // https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
+
+
     //returns an array containing the list of topologically sorted vertices
     // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
     public int[] topSort() {
-        int u, i;
+        int u;
         int N = arr.length;
         int[] indegrees = indegrees();
         int[] A = new int [N];
@@ -135,20 +139,22 @@ public class DiGraph {
 
         for(u = 0; u < N; u++){
             if(indegrees[u] == 0){
+                /*Adds 6 and 1 first since they have nothing. Print out backwards?*/
                 System.out.println("q add: " + u);
                 q.add(u + 1);
             }
         }
 
 
-        i = 0;
+        int i = 0;
         while(!q.isEmpty()){
             u = q.remove();
             A[i] = u;
             System.out.println("A: " + Arrays.toString(A));
 
-            i = i+1;
+            i += 1;
 
+            /*ASK ABOUT THE FOR LOOP ITS CONFUSING - NOT RIGHT*/
             for (int v = 0; v < arr.length; v++) {
                 indegrees[v] = indegrees[v]-1;
                 if (indegrees[v] == 0){
@@ -157,6 +163,7 @@ public class DiGraph {
             }
         }
 
+        /*Look up how to use illegal argument exceptions*/
         if(i != N+1) {
            //IllegalArgumentException("Cyclic cycle");
         }
