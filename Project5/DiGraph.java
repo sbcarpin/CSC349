@@ -176,9 +176,10 @@ public class DiGraph {
     //invokes BFS method and uses data in the returned array.
     public boolean isTherePath(int from, int to){
         boolean path = false;
+        VertexInfo[] va = BFS(from);
         //returns true if there is a path from from vertex to to vertex, and false otherwise.
 
-        if(){
+        if(va[to].distance != 1){
             path = true;
         }
         return path;
@@ -186,6 +187,9 @@ public class DiGraph {
 
     public int lengthOfPath(int from, int to){
         int length = 0;
+        if(isTherePath(from, to)){
+
+        }
         //returns an integer
         //the shortest distance of the to vertex from the from vertex.
 
@@ -196,7 +200,6 @@ public class DiGraph {
         String output = "";
         //arranges the output of the shortest path from from vertex to to vertex if to is reachable from from
         // (vertices of the path should be printed in natural numbering);
-
         VertexInfo[] va = BFS(from);
 
         if(va[to].distance == 1){
