@@ -192,6 +192,7 @@ public class DiGraph {
 
             while(from != to){
                 length += length;
+                to = va[to].predecessor;
             }
         }
         //returns an integer
