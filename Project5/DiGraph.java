@@ -260,7 +260,4 @@ public class DiGraph {
         //arrange the printing of this tree in the required format (vertices must be naturally numbered)
 
     }
-
 }
-
-
