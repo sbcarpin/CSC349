@@ -188,7 +188,16 @@ public class DiGraph {
     public int lengthOfPath(int from, int to){
         int length = 0;
         if(isTherePath(from, to)){
+            VertexInfo[] va = BFS(from);
 
+            if(va[to].distance == -1){
+                return 0;
+            }
+            else{
+                while(from != to){
+                    length += length;
+                }
+            }
         }
         //returns an integer
         //the shortest distance of the to vertex from the from vertex.
