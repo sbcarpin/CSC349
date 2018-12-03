@@ -139,7 +139,7 @@ public class DiGraph {
     //could decide if natural or not
     //used to construct shortest paths from s vertex to all vertices in the graph that are reachable from s.
     //This is the BFS algorithm discussed in class (see lecture handout).
-    private Object[] BFS(int s){
+    private VertexInfo[] BFS(int s){
         int u;
         //returns an array of VertexInfo type objects containing data
 
@@ -195,21 +195,24 @@ public class DiGraph {
     }
 
     public void printPath(int from, int to){
+        String output = "";
         //arranges the output of the shortest path from from vertex to to vertex if to is reachable from from
         // (vertices of the path should be printed in natural numbering);
 
-        //***** ASK IF ITS OKAY TO HAVE PRINTS IN THESE PRINT METHODS *******
+        VertexInfo[] va = BFS(from);
 
-        /* if(to is reachable from){
-         print shortest path from vertex -> to vertex
-
-         }
-         else{
-         System.out.println(“There is no path”);
-         }
-         *
-         * */
-
+        if(va[to].distance == 1){
+            System.out.println("no path");
+        }
+        else{
+            output = "";
+            while(from != to){
+                output = "->" + to + output;
+                to = va[to].predecessor;
+            }
+            output = from + output;
+            System.out.println(output);
+        }
     }
 
     // ******---- PART 4 ------******
