@@ -133,8 +133,6 @@ public class DiGraph {
     private class VertexInfo{
         public int distance;
         public int predecessor;
-        
-        
     }
     
     //could decide if natural or not
@@ -144,6 +142,12 @@ public class DiGraph {
         //returns an array of VertexInfo type objects containing data
 
         VertexInfo[] array = new VertexInfo[];
+
+
+
+
+
+        
         return array;
         
         //need a regular queue
@@ -159,7 +163,7 @@ public class DiGraph {
         //returns true if there is a path from from vertex to to vertex, and false otherwise.
         
         if(){
-            
+            path = true;
         }
         return path;
     }
@@ -196,8 +200,7 @@ public class DiGraph {
     private class TreeNode{
         public int vert_num;
         public LinkedList<Integer>[] children;
-        //inkedList type list to hold TreeNode type objects representing this vertex’s children.
-        
+        //LinkedList type list to hold TreeNode type objects representing this vertex’s children.
     }
     
     private buildTree(int s){
