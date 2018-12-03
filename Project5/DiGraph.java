@@ -192,7 +192,6 @@ public class DiGraph {
         }
         //returns an integer
         //the shortest distance of the to vertex from the from vertex.
-
         return length;
     }
 
