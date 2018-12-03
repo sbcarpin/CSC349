@@ -142,7 +142,7 @@ public class DiGraph {
         //returns an array of VertexInfo type objects containing data
 
         int N = arr.length;
-        VertexInfo[] va = new VertexInfo[];
+        VertexInfo[] va = new VertexInfo[N];
         for(u = 0; u < N; u++){
             va[u].distance = -1;
             va[u].predecessor = -1;
@@ -155,17 +155,17 @@ public class DiGraph {
 
         while(!q.isEmpty()){
             u = q.remove();
+            // is the right
             for(int i = 0; i < arr[u].size(); i++){
-                if(va[u].distance == -1){
-                    va[u].distance = va[u].distance + 1;
-                    va[u].predecessor = u;
-                    q.add(u);
+                if(va[i].distance == -1){
+                    va[i].distance = va[i].distance + 1;
+                    va[i].predecessor = u;
+                    q.add(i);
                 }
             }
         }
 
         return va;
-
         //need a regular queue
         //To implement a queue, in Java you can define an object of LinkedList class (the list is for integers).
         // Your list will function like a regular queue if you always add an element to the end of the list
@@ -225,13 +225,29 @@ public class DiGraph {
 
     private class TreeNode{
         public int vert_num;
-        public LinkedList<TreeNode>[] children;
+        public LinkedList<TreeNode>[] child;
         //LinkedList type list to hold TreeNode type objects representing this vertex’s children.
     }
 
-    private TreeNode buildTree(int s){
+    private int buildTree(int s){
+        int root;
+        // gives distance and predecessor
+        VertexInfo[] va = BFS(s);
+
+        // HOW BIG SHOULD THIS BE
+        TreeNode[] tree = new TreeNode[arr.length];
+
+        // while not a vertex
+        while(va[s].predecessor != -1){
+            tree[s].vert_num = va[s].predecessor;
+            tree[s].child = s;
+            // goes up the tree
+            s = va[s].predecessor;
+        }
+        root = s;
         //returns the root of the breadth-first-tree for the given s source- vertex.
         //The tree can be built based on the data in the array returned by the BFS method.
+
 
         return root;
     }
