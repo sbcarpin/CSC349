@@ -139,11 +139,11 @@ public class DiGraph {
     
     //could decide if natural or not
     //used to construct shortest paths from s vertex to all vertices in the graph that are reachable from s.
-    //This is the BFS algorithm we discussed in class (see lecture handout).
+    //This is the BFS algorithm discussed in class (see lecture handout).
     private Object[] BFS(int s){
         //returns an array of VertexInfo type objects containing data
-        
-        Object[] array = new Object[];
+
+        VertexInfo[] array = new VertexInfo[];
         return array;
         
         //need a regular queue
@@ -154,16 +154,20 @@ public class DiGraph {
     
     //parameters are given in NATURAL (for these 3 methods)
     //invokes BFS method and uses data in the returned array.
-    public boolean isTherePath(int from, int t){
+    public boolean isTherePath(int from, int to){
         boolean path = false;
         //returns true if there is a path from from vertex to to vertex, and false otherwise.
         
+        if(){
+            
+        }
         return path;
     }
     
     public int lengthOfPath(int from, int to){
         int length = 0;
-        //returns an integer – the shortest distance of the to vertex from the from vertex.
+        //returns an integer
+        //the shortest distance of the to vertex from the from vertex.
         
         return length;
     }
