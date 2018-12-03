@@ -202,8 +202,7 @@ public class DiGraph {
         // (vertices of the path should be printed in natural numbering);
         VertexInfo[] va = BFS(from);
 
-        // isnt this suppose to be -1??
-        if(va[to].distance == 1){
+        if(va[to].distance == -1){
             System.out.println("There is no path");
         }
         else{
