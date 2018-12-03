@@ -225,14 +225,15 @@ public class DiGraph {
 
     private class TreeNode{
         public int vert_num;
-        public LinkedList<Integer>[] children;
+        public LinkedList<TreeNode>[] children;
         //LinkedList type list to hold TreeNode type objects representing this vertex’s children.
     }
 
-    private buildTree(int s){
+    private TreeNode buildTree(int s){
         //returns the root of the breadth-first-tree for the given s source- vertex.
         //The tree can be built based on the data in the array returned by the BFS method.
 
+        return root;
     }
 
     public void printTree(int s){
