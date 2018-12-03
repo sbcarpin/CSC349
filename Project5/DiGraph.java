@@ -24,8 +24,6 @@ public class DiGraph {
         }
     }
 
-    //two parameters identify vertices representing the edge that needs to be added to the graph
-    // (to vertex is added as from vertex’s neighbor).
     public void addEdge(int from, int to) {
         from -= 1;
         to -= 1;
@@ -35,8 +33,6 @@ public class DiGraph {
         }
     }
 
-    //two parameters identify vertices representing the edge that needs to be deleted from the graph
-    // (to vertex is removed from vertex’s neighbor).
     public void deleteEdge(int from, int to) {
         from -= 1;
         to -= 1;
@@ -49,10 +45,6 @@ public class DiGraph {
         System.out.println("Edge Removed");
     }
 
-    //vertex-numbers are given in natural numbering(starting with 1) so you should “turn
-    // ”them to Java-indexing to reflect correct connection. No need for validity check
-
-    // computes and returns edges of graph
     public int edgeCount() {
         int edge_num = 0;
 
@@ -83,14 +75,8 @@ public class DiGraph {
     }
 
     // ******---- PART 2 ------******
-    // CHECK THIS OUT
-    //https://www.geeksforgeeks.org/topological-sorting/
-
     //include the implementation of the Topological Sort
-    //algorithm including a supporting routine for computing vertex indegrees.
-
-    //returns an array of integers representing the indegrees of all vertices in the graph
-    //the i-th integer in the resulting array is the indegree of the i-th vertex.
+    
     private int[] indegrees() {
         int N = arr.length;
         int[] indegrees = new int [N];
@@ -104,8 +90,6 @@ public class DiGraph {
         return indegrees;
     }
 
-    //returns an array containing the list of topologically sorted vertices
-    // (values in the array should represent natural vertex-numbers, i.e. starting with 1).
     public int[] topSort() {
         int N = arr.length;
         int[] indegrees = indegrees();
@@ -141,6 +125,92 @@ public class DiGraph {
 
         return A;
     }
+    
+    //****** WHERE DO THOSE METHODS GO? IN EACH CLASS? *********//
+    
+    // ******---- PART 3 ------******
+    //implementation of breadth-first-search and related routines
+    private class VertexInfo{
+        public int distance;
+        public int predecessor;
+        
+        
+    }
+    
+    //could decide if natural or not
+    //used to construct shortest paths from s vertex to all vertices in the graph that are reachable from s.
+    //This is the BFS algorithm we discussed in class (see lecture handout).
+    private Object[] BFS(int s){
+        //returns an array of VertexInfo type objects containing data
+        
+        Object[] array = new Object[];
+        return array;
+        
+        //need a regular queue
+        //To implement a queue, in Java you can define an object of LinkedList class (the list is for integers).
+        // Your list will function like a regular queue if you always add an element to the end of the list
+        // (addLast method) and delete an element from the front of the list (removeFirst method).
+    }
+    
+    //parameters are given in NATURAL (for these 3 methods)
+    //invokes BFS method and uses data in the returned array.
+    public boolean isTherePath(int from, int t){
+        boolean path = false;
+        //returns true if there is a path from from vertex to to vertex, and false otherwise.
+        
+        return path;
+    }
+    
+    public int lengthOfPath(int from, int to){
+        int length = 0;
+        //returns an integer – the shortest distance of the to vertex from the from vertex.
+        
+        return length;
+    }
+    
+    public void printPath(int from, int to){
+        //arranges the output of the shortest path from from vertex to to vertex if to is reachable from from
+        // (vertices of the path should be printed in natural numbering);
+        
+        //***** ASK IF ITS OKAY TO HAVE PRINTS IN THESE PRINT METHODS *******
+        
+        /* if(to is reachable from){
+         print shortest path from vertex -> to vertex
+         
+         }
+         else{
+         System.out.println(“There is no path”);
+         }
+         *
+         * */
+        
+    }
+    
+    // ******---- PART 4 ------******
+    // building and printing of the breadth-first-tree
+    
+    private class TreeNode{
+        public int vert_num;
+        public LinkedList<Integer>[] children;
+        //inkedList type list to hold TreeNode type objects representing this vertex’s children.
+        
+    }
+    
+    private buildTree(int s){
+        //returns the root of the breadth-first-tree for the given s source- vertex.
+        //The tree can be built based on the data in the array returned by the BFS method.
+        
+    }
+    
+    public void printTree(int s){
+        //prints the breadth-first-tree for a given source vertex s.
+        //Vertex s is given via natural numbering: manage adjustments with Java indexing.
+        
+        //invoke buildTree method and obtain the breadth-first-tree (more precisely, its root-node). Then
+        //arrange the printing of this tree in the required format (vertices must be naturally numbered)
+        
+    }
+    
 }
 
 
