@@ -127,8 +127,6 @@ public class DiGraph {
         return A;
     }
 
-    //****** WHERE DO THOSE METHODS GO? IN EACH CLASS? *********//
-
     // ******---- PART 3 ------******
     //implementation of breadth-first-search and related routines
     private class VertexInfo{
@@ -202,7 +200,7 @@ public class DiGraph {
         VertexInfo[] va = BFS(from);
 
         if(va[to].distance == 1){
-            System.out.println("no path");
+            System.out.println("There is no path");
         }
         else{
             output = "";
