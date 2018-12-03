@@ -190,13 +190,8 @@ public class DiGraph {
         if(isTherePath(from, to)){
             VertexInfo[] va = BFS(from);
 
-            if(va[to].distance == -1){
-                return 0;
-            }
-            else{
-                while(from != to){
-                    length += length;
-                }
+            while(from != to){
+                length += length;
             }
         }
         //returns an integer
