@@ -156,7 +156,6 @@ public class DiGraph {
         for(int i = 0; i < N; i++){
             va[i] = new VertexInfo(-1,-1);
         }
-        System.out.println("s: " + s);
         va[s].distance = 0;
 
         Queue<Integer> q = new LinkedList<Integer>();
@@ -193,7 +192,7 @@ public class DiGraph {
             return true;
         }
         //else {
-            return false;
+        return false;
         //}
     }
 
@@ -209,23 +208,23 @@ public class DiGraph {
     public void printPath(int from, int to) {
         //arranges the output of the shortest path from from vertex to to vertex if to is reachable from from
         // (vertices of the path should be printed in natural numbering);
+
         from -= 1;
         to -= 1;
 
-        String output = "";
         VertexInfo[] va = BFS(from);
 
-        if (!isTherePath(from+1, to+1)) {
-            System.out.println("There is no path");
-        } else {
-            output = "";
-            while (from != to) {
-                output = "->" + (to + 1) + output;
-                to = va[to].predecessor;
+            if (!isTherePath(from+1, to+1)) {
+                System.out.println("There is no path");
             }
-            output = (from + 1) + output;
-            System.out.println(output);
-        }
+            else {
+                String path = "";
+                while (va[to].predecessor != -1) {
+                    path = "->"+ (to) + path;
+                    to = va[to].predecessor;
+                }
+                System.out.println("" + (from + 1) + path);
+            }
     }
 
     // ******---- PART 4 ------******
