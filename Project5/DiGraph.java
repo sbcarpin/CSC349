@@ -274,11 +274,11 @@ public class DiGraph {
 
         if (buildTree(s) != 0)
 
-        //prints the breadth-first-tree for a given source vertex s.
-        //Vertex s is given via natural numbering: manage adjustments with Java indexing.
-        for(int i = 0; i < N; i++){
-            breath(buildTree(s));
-        }
+            //prints the breadth-first-tree for a given source vertex s.
+            //Vertex s is given via natural numbering: manage adjustments with Java indexing.
+            for(int i = 0; i < N; i++){
+                breath(buildTree(s));
+            }
 
         //invoke buildTree method and obtain the breadth-first-tree (more precisely, its root-node). Then
         //arrange the printing of this tree in the required format (vertices must be naturally numbered)
@@ -290,7 +290,7 @@ public class DiGraph {
             return;
 
         System.out.print(root + " ");
-        breadth(root);
-        breadth(root);
+        breath(root);
+        breath(root);
     }
 }
