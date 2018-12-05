@@ -31,6 +31,7 @@ public class DiGraphTest {
         System.out.println("- BFS, is there path (enter i)"); // PART 3
         System.out.println("- BFS, length of path (enter l)");
         System.out.println("- BFS, shortest path (enter s)");
+        System.out.println("- print breadth-first-tree (enter b)");
         System.out.println("- Quit (enter q)");
         int num1, num2;
         
@@ -118,8 +119,10 @@ public class DiGraphTest {
                     break;
                     //PART 4
                 case 'b':
+                    System.out.println("Enter a source vertex numbers: ");
+                    num1 = keyboard.nextInt();
                     System.out.print("The breadth-first-tree is: ");
-                    diobject.printTree();
+                    diobject.printTree(num1);
                     break;
                 default:
                     System.out.println("Invalid menu choice. Please try again.");
