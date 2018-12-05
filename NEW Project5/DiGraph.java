@@ -110,7 +110,7 @@ public class DiGraph {
             Integer W = q.remove();
             int w = W.intValue();
 
-            A[i] = w;
+            A[i] = w + 1;
             i+=1;
 
             for(int z = 0; z < N; z++) {
@@ -126,7 +126,7 @@ public class DiGraph {
         }
 
         if((N) != i) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Graph is Cylic");
         }
         return A;
     }
