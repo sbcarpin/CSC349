@@ -10,17 +10,17 @@ import java.util.*;
 import java.io.*;
 
 public class DiGraphTest {
-
+    
     public static void main(String[] args) {
-
+        
         Scanner keyboard = new Scanner(System.in);
-
+        
         System.out.println("Enter number of vertices: ");
         int num_vert = keyboard.nextInt();
         //input the number of vertices and define an object of DiGraph class.
-
+        
         DiGraph diobject = new DiGraph(num_vert);
-
+        
         System.out.println("Choose one of the following operations: ");
         System.out.println("- add edge (enter a)");
         System.out.println("- delete edge (enter d)");
@@ -34,18 +34,18 @@ public class DiGraphTest {
         System.out.println("- print breadth-first-tree (enter b)");
         System.out.println("- Quit (enter q)");
         int num1, num2;
-
-
+        
+        
         //as long as the user does not enter "q" for quit keeo doing the below
         while (true) {
             char input = keyboard.next().charAt(0);
             String i = keyboard.nextLine();
-
+            
             //System.out.println("String length: " + i.length());
             if (i.length() != 0) {
                 input = 'x'; // to go to default
             }
-
+            
             switch (input) {
                 case 'q':
                     System.out.println("Goodbye.");
@@ -75,7 +75,7 @@ public class DiGraphTest {
                     System.out.println("The graph is the following: ");
                     diobject.print();
                     break;
-                // PART 2
+                    // PART 2
                 case 't':
                     try {
                         System.out.println("The graph is the following: ");
@@ -91,7 +91,7 @@ public class DiGraphTest {
                         System.out.println(e.getMessage());
                     }
                     break;
-                //PART 3
+                    //PART 3
                 case 'i':
                     System.out.println("Enter two vertex numbers: ");
                     num1 = keyboard.nextInt();
@@ -117,7 +117,7 @@ public class DiGraphTest {
                     System.out.print("The shortest path is: ");
                     diobject.printPath(num1, num2);
                     break;
-                //PART 4
+                    //PART 4
                 case 'b':
                     System.out.println("Enter a source vertex numbers: ");
                     num1 = keyboard.nextInt();
