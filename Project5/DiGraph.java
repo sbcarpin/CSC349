@@ -263,7 +263,6 @@ public class DiGraph {
         //returns the root of the breadth-first-tree for the given s source- vertex.
         //The tree can be built based on the data in the array returned by the BFS method.
 
-
         return root;
     }
 

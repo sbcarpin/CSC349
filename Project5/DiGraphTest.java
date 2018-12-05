@@ -119,7 +119,7 @@ public class DiGraphTest {
                     //PART 4
                 case 'b':
                     System.out.print("The breadth-first-tree is: ");
-                    //diobject.lengthOfPath(num1, num2);
+                    diobject.printTree();
                     break;
                 default:
                     System.out.println("Invalid menu choice. Please try again.");
