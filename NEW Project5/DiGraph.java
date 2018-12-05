@@ -148,6 +148,7 @@ public class DiGraph {
     //used to construct shortest paths from s vertex to all vertices in the graph that are reachable from s.
     //This is the BFS algorithm we discussed in class (see lecture handout).
     private VertexInfo[] BFS(int s) {
+        s++;
         //returns an array of VertexInfo type objects containing data
         int N = arr.length;
         VertexInfo[] va = new VertexInfo[N];
@@ -155,7 +156,7 @@ public class DiGraph {
         for(int i = 0; i < N; i++){
             va[i] = new VertexInfo(-1,-1);
         }
-
+        System.out.println("s: " + s);
         va[s].distance = 0;
 
         Queue<Integer> q = new LinkedList<Integer>();

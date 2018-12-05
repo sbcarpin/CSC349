@@ -152,6 +152,7 @@ public class DiGraph {
             va[u].distance = -1;
             va[u].predecessor = -1;
         }
+        System.out.println("s: " + s);
         va[s].distance = 0;
         
         Queue<Integer> q = new LinkedList<>();
