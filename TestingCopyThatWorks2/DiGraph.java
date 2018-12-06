@@ -1,22 +1,29 @@
+/*Project 5
+ *November 30, 2018
+ *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
+ *Aurora Paz - aepaz@calpoly.edu
+ *Natalie Miller - nmille35@calpoly.edu
+ */
+
 import java.util.LinkedList;
 
 import java.util.Queue;
 
 public class DiGraph {
-
+    
     private class VertexInfo {
-
+        
         private int distance;
         private int pred;
-
+        
         public VertexInfo(int distance, int pred) {
             this.distance = distance;
             this.pred = pred;
         }
     }
-
+    
     private LinkedList<Integer>[] arr;
-
+    
     private VertexInfo[] BFS(int s) {
         int N = arr.length;
         VertexInfo[] VA = new VertexInfo[N+1];
@@ -28,7 +35,7 @@ public class DiGraph {
         queue.add(s);
         while (!queue.isEmpty()) {
             int u = (int) (queue.remove());
-            for (int v=0; v<arr[u-1].size(); v++) { 
+            for (int v=0; v<arr[u-1].size(); v++) {
                 int vert = arr[u-1].get(v);
                 if (VA[vert].distance == -1) {
                     VA[vert].distance = VA[u].distance + 1;
@@ -36,27 +43,27 @@ public class DiGraph {
                     queue.add(vert);
                 }
             }
-
+            
         }
         return VA;
-
+        
     }
-
-
+    
+    
     public boolean isTherePath(int from, int to) {
         VertexInfo[] VA = BFS(from);
         if (VA[to].pred == -1) {
             return false;
         }
         return true;
-
+        
     }
-
+    
     public int lengthOfPath(int from, int to) {
         VertexInfo[] VA = BFS(from);
         return VA[to].distance;
     }
-
+    
     public void printPath(int from, int to) {
         VertexInfo[] VA = BFS(from);
         if (VA[to].distance == -1) {
@@ -72,14 +79,14 @@ public class DiGraph {
             System.out.println(output);
         }
     }
-
+    
     public DiGraph(int n) {
         arr = new LinkedList[n];
         for (int i = 0; i < n; i++) {
             arr[i] = new LinkedList<Integer>();
         }
     }
-
+    
     public boolean addEdge(int from, int to) {
         if (arr[from-1].contains(to)) {
             return false;
@@ -87,12 +94,12 @@ public class DiGraph {
         arr[from-1].add(to);
         return true;
     }
-
+    
     public void deleteEdge(int from, int to) {
         int index = arr[from-1].indexOf(to);
         arr[from-1].remove(index);
     }
-
+    
     public int edgeCount() {
         int edgeSum = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -100,11 +107,11 @@ public class DiGraph {
         }
         return edgeSum;
     }
-
+    
     public int vertexCount() {
         return arr.length;
     }
-
+    
     public void print() {
         for (int i = 0; i < arr.length; i++) {
             System.out.print((i+1) + " is connected to: ");
@@ -117,19 +124,19 @@ public class DiGraph {
             System.out.println();
         }
     }
-
+    
     private int[] indegrees() {
         int n = arr.length;
         int[] indegrees = new int[n];
-        for (int u = 0; u < n; u++) { 
+        for (int u = 0; u < n; u++) {
             for (int v = 0; v < arr[u].size(); v++) {
                 indegrees[arr[u].get(v) - 1] += 1;
             }
         }
-
+        
         return indegrees;
     }
-
+    
     public int[] topSort() throws IllegalArgumentException {
         int n = arr.length;
         int []indegrees = indegrees();
@@ -157,19 +164,19 @@ public class DiGraph {
         }
         return a;
     }
-
-
+    
+    
     private class TreeNode {
-
+        
         private int vert;
         private LinkedList<TreeNode> child;
-
+        
         public TreeNode(int vert, LinkedList<TreeNode> child) {
             this.vert = vert;
             this.child = child;
         }
     }
-
+    
     private TreeNode buildTree(int s) {
         VertexInfo[] VA = BFS(s);
         int N = VA.length - 1;
@@ -185,14 +192,15 @@ public class DiGraph {
         }
         return treeNodes[s];
     }
-
-
+    
+    
     public void printTree(int s) {
+        System.out.println(s);
         TreeNode root = buildTree(s);
         String indent = "";
         printTreeRecursive(root, indent);
     }
-
+    
     private void printTreeRecursive(TreeNode root, String indent) {
         System.out.println(indent + root.vert + " ");
         if (root.child.isEmpty()) {
@@ -203,3 +211,4 @@ public class DiGraph {
         }
     }
 }
+
