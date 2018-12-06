@@ -241,21 +241,19 @@ public class DiGraph {
     }
 
     private TreeNode buildTree(int s) {
-        VertexInfo[] va = BFS(s-1);
-        TreeNode[] tree = new TreeNode[arr.length];
-
-        for(int i = 0; i < arr.length; i++) {
-            tree[i] = new TreeNode(i, new LinkedList<TreeNode>());
-            tree[i].child = LinkedList<TreeNode>;
+        VertexInfo[] VA = BFS(s);
+        int N = VA.length;
+        TreeNode[] treeNodes = new TreeNode[N];
+        for (int i=1; i<N; i++) {
+            treeNodes[i] = new TreeNode(i, new LinkedList<TreeNode>());
         }
-
-        for (int i = 0; i < va.length; i++) {
-            if (va[i].predecessor != -1) {
-                System.out.println("tree[va[i].predecessor].child.add(tree[i]) : " + tree[va[i].predecessor].child.add(tree[i]));
-                tree[va[i].predecessor].child.add(tree[i]);
+        for (int i=1; i<N; i++) {
+            int predecessor = VA[i].predecessor;
+            if (predecessor != -1) {
+                treeNodes[predecessor].child.add(treeNodes[i]);
             }
         }
-        return tree[s-1];
+        return treeNodes[s];
     }
 
 
