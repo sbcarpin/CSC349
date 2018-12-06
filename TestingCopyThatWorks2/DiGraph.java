@@ -3,8 +3,8 @@
  *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
  *Aurora Paz - aepaz@calpoly.edu
  *Natalie Miller - nmille35@calpoly.edu
- * This is a DiGraph project that uses natural indexing to do a breath first tree, 
- *  and topological sort for project 5 in CSC 349.
+ * This is a DiGraph project that uses natural indexing to do a breath first tree,
+ * and topological sort for project 5 in CSC 349.
  */
 
 import java.util.LinkedList;
@@ -12,80 +12,22 @@ import java.util.Queue;
 
 public class DiGraph {
     
-    private class VertexInfo {
-        
-        private int dist;
-        private int pred;
-        
-        public VertexInfo(int dist, int pred) {
-            this.dist = dist;
-            this.pred = pred;
-        }
-    }
-    
+    //private instance variable - array of linked lists
     private LinkedList<Integer>[] arr;
     
-    private VertexInfo[] BFS(int s) {
-        int N = arr.length;
-        VertexInfo[] VA = new VertexInfo[N+1];
-        for (int u=1; u<=N; u++) {
-            VA[u] = new VertexInfo(-1, -1);
-        }
-        VA[s].dist = 0;
-        Queue q = new LinkedList<Integer>();
-        q.add(s);
-        while (!q.isEmpty()) {
-            int u = (int) (q.remove());
-            for (int v=0; v<arr[u-1].size(); v++) {
-                int vert = arr[u-1].get(v);
-                if (VA[vert].dist == -1) {
-                    VA[vert].dist = VA[u].dist + 1;
-                    VA[vert].pred = u;
-                    q.add(vert);
-                }
-            }
-        }
-        return VA;
-    }
     
-    
-    public boolean isTherePath(int from, int to) {
-        VertexInfo[] VA = BFS(from);
-        if (VA[to].pred == -1) {
-            return false;
-        }
-        return true;
-    }
-    
-    public int lengthOfPath(int from, int to) {
-        VertexInfo[] VA = BFS(from);
-        return VA[to].dist;
-    }
-    
-    public void printPath(int from, int to) {
-        VertexInfo[] VA = BFS(from);
-        if (VA[to].dist == -1) {
-            System.out.println("There is no path");
-        }
-        else {
-            String output = "";
-            while (from != to) {
-                output = " -> " + to + output;
-                to = VA[to].pred;
-            }
-            output = from + output;
-            System.out.println(output);
-        }
-    }
-    
-    public DiGraph(int n) {
-        arr = new LinkedList[n];
-        for (int i = 0; i < n; i++) {
+    // ******---- PART 1 ------******//
+    // constructor with one int type parameter for N that initializes instance variable array
+    public DiGraph(int N) {
+        arr = new LinkedList[N];
+        for (int i = 0; i < N; i++) {
             arr[i] = new LinkedList<Integer>();
         }
     }
     
+    //adds edge to graph
     public boolean addEdge(int from, int to) {
+        //the edge should not be added if it already exists
         if (arr[from-1].contains(to)) {
             return false;
         }
@@ -93,11 +35,14 @@ public class DiGraph {
         return true;
     }
     
+    //removes edge from graph
     public void deleteEdge(int from, int to) {
+        //nothing done if edge does not exist (no error message)
         int index = arr[from-1].indexOf(to);
         arr[from-1].remove(index);
     }
     
+    //returns num of edges of the graph
     public int edgeCount() {
         int edgeSum = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -106,10 +51,12 @@ public class DiGraph {
         return edgeSum;
     }
     
+    // returns number of vetices (its the arrays length)
     public int vertexCount() {
         return arr.length;
     }
     
+    //outputs the graph in the format provided in handout
     public void print() {
         for (int i = 0; i < arr.length; i++) {
             System.out.print((i+1) + " is connected to: ");
@@ -123,6 +70,10 @@ public class DiGraph {
         }
     }
     
+    // ******---- PART 2 ------******
+    //include the implementation of the Topological Sort
+    
+    //returns an array of numbers representing the indegrees of all the vertices in the graph
     private int[] indegrees() {
         int n = arr.length;
         int[] indegrees = new int[n];
@@ -134,6 +85,7 @@ public class DiGraph {
         return indegrees;
     }
     
+    //returns an array containing the list of topologically sorted vertices
     public int[] topSort() throws IllegalArgumentException {
         int n = arr.length;
         int []indegrees = indegrees();
@@ -162,6 +114,80 @@ public class DiGraph {
         return a;
     }
     
+    // ******---- PART 3 ------******
+    //implementation of breadth-first-search and related routines
+    
+    private class VertexInfo {
+        
+        private int dist;
+        private int pred;
+        
+        public VertexInfo(int dist, int pred) {
+            this.dist = dist;
+            this.pred = pred;
+        }
+    }
+    
+    //returns the array of vertex info type objects containing data that can be used
+    //to construct the shortest paths from 's' vertex to all the vertices in the graph
+    //that are reachable from 's'
+    private VertexInfo[] BFS(int s) {
+        int N = arr.length;
+        VertexInfo[] VA = new VertexInfo[N+1];
+        for (int u=1; u<=N; u++) {
+            VA[u] = new VertexInfo(-1, -1);
+        }
+        VA[s].dist = 0;
+        Queue q = new LinkedList<Integer>();
+        q.add(s);
+        while (!q.isEmpty()) {
+            int u = (int) (q.remove());
+            for (int v=0; v<arr[u-1].size(); v++) {
+                int vert = arr[u-1].get(v);
+                if (VA[vert].dist == -1) {
+                    VA[vert].dist = VA[u].dist + 1;
+                    VA[vert].pred = u;
+                    q.add(vert);
+                }
+            }
+        }
+        return VA;
+    }
+    
+    //true if path
+    public boolean isTherePath(int from, int to) {
+        VertexInfo[] VA = BFS(from);
+        if (VA[to].pred == -1) {
+            return false;
+        }
+        return true;
+    }
+    
+    //returns the shortest distance to, from
+    public int lengthOfPath(int from, int to) {
+        VertexInfo[] VA = BFS(from);
+        return VA[to].dist;
+    }
+    
+    //shortest distance from, to
+    public void printPath(int from, int to) {
+        VertexInfo[] VA = BFS(from);
+        if (VA[to].dist == -1) {
+            System.out.println("There is no path");
+        }
+        else {
+            String output = "";
+            while (from != to) {
+                output = " -> " + to + output;
+                to = VA[to].pred;
+            }
+            output = from + output;
+            System.out.println(output);
+        }
+    }
+    
+    // ******---- PART 4 ------******
+    // building and printing of the breadth-first-tree
     
     private class TreeNode {
         
@@ -174,6 +200,7 @@ public class DiGraph {
         }
     }
     
+    //returns the root
     private TreeNode buildTree(int s) {
         VertexInfo[] VA = BFS(s);
         int N = VA.length - 1;
@@ -190,7 +217,7 @@ public class DiGraph {
         return tree[s];
     }
     
-    
+    //prints breadth first tree
     public void printTree(int s) {
         System.out.println();
         TreeNode root = buildTree(s);
