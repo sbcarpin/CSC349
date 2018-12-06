@@ -32,16 +32,16 @@ public class DiGraph {
             VA[u] = new VertexInfo(-1, -1);
         }
         VA[s].dist = 0;
-        Queue queue = new LinkedList<Integer>();
-        queue.add(s);
-        while (!queue.isEmpty()) {
-            int u = (int) (queue.remove());
+        Queue q = new LinkedList<Integer>();
+        q.add(s);
+        while (!q.isEmpty()) {
+            int u = (int) (q.remove());
             for (int v=0; v<arr[u-1].size(); v++) {
                 int vert = arr[u-1].get(v);
                 if (VA[vert].dist == -1) {
                     VA[vert].dist = VA[u].dist + 1;
                     VA[vert].pred = u;
-                    queue.add(vert);
+                    q.add(vert);
                 }
             }
         }
