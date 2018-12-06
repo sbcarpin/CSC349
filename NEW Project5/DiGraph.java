@@ -26,6 +26,7 @@ public class DiGraph {
 
     public void addEdge(int from, int to) {
         int nfrom = from - 1;
+        to--;
         //the edge should not be added if it already exists
         if (!arr[nfrom].contains(to)) {
             arr[nfrom].add(to);
@@ -34,6 +35,7 @@ public class DiGraph {
 
     public void deleteEdge(int from, int to) {
         int nfrom = from - 1;
+        to--;
 
         //nothing done if edge does not exist (no error message)
         if (arr[nfrom].contains(to)) {
@@ -62,10 +64,10 @@ public class DiGraph {
             System.out.print((i + 1) + " is connected to: ");
             for (int j = 0; j < arr[i].size(); j++) {
                 if (j == arr[i].size()-1) {
-                    System.out.print(arr[i].get(j));
+                    System.out.print(arr[i].get(j) + 1);
                 }
                 else{
-                    System.out.print(arr[i].get(j) + ",");
+                    System.out.print((arr[i].get(j) + 1) + ",");
                 }
             }
             System.out.print("\n");
@@ -82,7 +84,7 @@ public class DiGraph {
         for (int j = 0; j < N; j++) {
             for (int z = 0; z < arr[j].size(); z++) {
                 int v = arr[j].get(z);
-                indegrees[v-1] += 1;
+                indegrees[v] += 1;
             }
         }
         return indegrees;
@@ -110,15 +112,15 @@ public class DiGraph {
             Integer W = q.remove();
             int w = W.intValue();
 
-            A[i] = w + 1;
+            A[i] = w + 1; //here
             i+=1;
 
             for(int z = 0; z < N; z++) {
                 for(int j = 0; j < arr[z].size(); j++) {
                     int n = arr[z].get(j);
-                    indegrees[n-1] -=1;
-                    if(indegrees[n-1] == 0) {
-                        Integer NODE = new Integer(n-1);
+                    indegrees[n] -=1;
+                    if(indegrees[n] == 0) {
+                        Integer NODE = new Integer(n);
                         q.add(NODE);
                     }
                 }
@@ -148,7 +150,6 @@ public class DiGraph {
     //used to construct shortest paths from s vertex to all vertices in the graph that are reachable from s.
     //This is the BFS algorithm we discussed in class (see lecture handout).
     private VertexInfo[] BFS(int s) {
-        s++;
         //returns an array of VertexInfo type objects containing data
         int N = arr.length;
         VertexInfo[] va = new VertexInfo[N];
@@ -165,8 +166,7 @@ public class DiGraph {
         while(q.size() > 0) {
             Integer u = q.remove();
             for(int j = 0; j < arr[u].size(); j++) {
-                int node = arr[u].get(j) - 1;
-
+                int node = arr[u].get(j);
                 if (va[node].distance == -1) {
                     va[node].distance = va[u].distance + 1;
                     va[node].predecessor = u;
@@ -200,7 +200,7 @@ public class DiGraph {
         from -= 1;
         to -= 1;
         //returns an integer – the shortest distance of the to vertex from the from vertex.
-        VertexInfo[] va = BFS(from - 1); //crashes here
+        VertexInfo[] va = BFS(from); //crashes here
 
         return va[to].distance;
     }
@@ -208,23 +208,22 @@ public class DiGraph {
     public void printPath(int from, int to) {
         //arranges the output of the shortest path from from vertex to to vertex if to is reachable from from
         // (vertices of the path should be printed in natural numbering);
-
         from -= 1;
         to -= 1;
 
         VertexInfo[] va = BFS(from);
 
-            if (!isTherePath(from+1, to+1)) {
-                System.out.println("There is no path");
+        if (va[to].distance == -1) {
+            System.out.println("There is no path");
+        }
+        else {
+            String path = "";
+            while (from != to) {
+                path = "->"+ (to + 1) + path;
+                to = va[to].predecessor;
             }
-            else {
-                String path = "";
-                while (va[to].predecessor != -1) {
-                    path = "->"+ (to) + path;
-                    to = va[to].predecessor;
-                }
-                System.out.println("" + (from + 1) + path);
-            }
+            System.out.println("" + (from + 1) + path);
+        }
     }
 
     // ******---- PART 4 ------******
@@ -246,11 +245,13 @@ public class DiGraph {
         TreeNode[] tree = new TreeNode[arr.length];
 
         for(int i = 0; i < arr.length; i++) {
-            tree[i] = new TreeNode(i+1, new LinkedList<TreeNode>());
+            tree[i] = new TreeNode(i, new LinkedList<TreeNode>());
+            tree[i].child = LinkedList<TreeNode>;
         }
 
         for (int i = 0; i < va.length; i++) {
             if (va[i].predecessor != -1) {
+                System.out.println("tree[va[i].predecessor].child.add(tree[i]) : " + tree[va[i].predecessor].child.add(tree[i]));
                 tree[va[i].predecessor].child.add(tree[i]);
             }
         }
