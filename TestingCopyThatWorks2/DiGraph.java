@@ -3,21 +3,22 @@
  *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
  *Aurora Paz - aepaz@calpoly.edu
  *Natalie Miller - nmille35@calpoly.edu
+ * This is a DiGraph project that uses natural indexing to do a breath first tree, 
+ *  and topological sort for project 5 in CSC 349.
  */
 
 import java.util.LinkedList;
-
 import java.util.Queue;
 
 public class DiGraph {
     
     private class VertexInfo {
         
-        private int distance;
+        private int dist;
         private int pred;
         
-        public VertexInfo(int distance, int pred) {
-            this.distance = distance;
+        public VertexInfo(int dist, int pred) {
+            this.dist = dist;
             this.pred = pred;
         }
     }
@@ -30,23 +31,21 @@ public class DiGraph {
         for (int u=1; u<=N; u++) {
             VA[u] = new VertexInfo(-1, -1);
         }
-        VA[s].distance = 0;
+        VA[s].dist = 0;
         Queue queue = new LinkedList<Integer>();
         queue.add(s);
         while (!queue.isEmpty()) {
             int u = (int) (queue.remove());
             for (int v=0; v<arr[u-1].size(); v++) {
                 int vert = arr[u-1].get(v);
-                if (VA[vert].distance == -1) {
-                    VA[vert].distance = VA[u].distance + 1;
+                if (VA[vert].dist == -1) {
+                    VA[vert].dist = VA[u].dist + 1;
                     VA[vert].pred = u;
                     queue.add(vert);
                 }
             }
-            
         }
         return VA;
-        
     }
     
     
@@ -56,17 +55,16 @@ public class DiGraph {
             return false;
         }
         return true;
-        
     }
     
     public int lengthOfPath(int from, int to) {
         VertexInfo[] VA = BFS(from);
-        return VA[to].distance;
+        return VA[to].dist;
     }
     
     public void printPath(int from, int to) {
         VertexInfo[] VA = BFS(from);
-        if (VA[to].distance == -1) {
+        if (VA[to].dist == -1) {
             System.out.println("There is no path");
         }
         else {
@@ -133,7 +131,6 @@ public class DiGraph {
                 indegrees[arr[u].get(v) - 1] += 1;
             }
         }
-        
         return indegrees;
     }
     
@@ -180,34 +177,34 @@ public class DiGraph {
     private TreeNode buildTree(int s) {
         VertexInfo[] VA = BFS(s);
         int N = VA.length - 1;
-        TreeNode[] treeNodes = new TreeNode[N+1];
+        TreeNode[] tree = new TreeNode[N+1];
         for (int i=1; i<=N; i++) {
-            treeNodes[i] = new TreeNode(i, new LinkedList<TreeNode>());
+            tree[i] = new TreeNode(i, new LinkedList<TreeNode>());
         }
         for (int i=1; i<=N; i++) {
             int pred = VA[i].pred;
             if (pred != -1) {
-                treeNodes[pred].child.add(treeNodes[i]);
+                tree[pred].child.add(tree[i]);
             }
         }
-        return treeNodes[s];
+        return tree[s];
     }
     
     
     public void printTree(int s) {
-        System.out.println(s);
+        System.out.println();
         TreeNode root = buildTree(s);
-        String indent = "";
-        printTreeRecursive(root, indent);
+        String str = "";
+        printTreeRecursive(root, str);
     }
     
-    private void printTreeRecursive(TreeNode root, String indent) {
-        System.out.println(indent + root.vert + " ");
+    private void printTreeRecursive(TreeNode root, String str) {
+        System.out.println(str + root.vert + " ");
         if (root.child.isEmpty()) {
             return;
         }
         for (int i=0; i<root.child.size(); i++) {
-            printTreeRecursive(root.child.get(i), indent + "    ");
+            printTreeRecursive(root.child.get(i), str + "    ");
         }
     }
 }
