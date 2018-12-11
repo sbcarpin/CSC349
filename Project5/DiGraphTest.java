@@ -3,132 +3,235 @@
  *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
  *Aurora Paz - aepaz@calpoly.edu
  *Natalie Miller - nmille35@calpoly.edu
+ * This is a DiGraph project that uses natural indexing to do a breath first tree,
+ * and topological sort for project 5 in CSC 349.
  */
 
-import java.util.Scanner;
-import java.util.*;
-import java.io.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class DiGraphTest {
-
-    public static void main(String[] args) {
-
-        Scanner keyboard = new Scanner(System.in);
-
-        System.out.println("Enter number of vertices: ");
-        int num_vert = keyboard.nextInt();
-        //input the number of vertices and define an object of DiGraph class.
-
-        DiGraph diobject = new DiGraph(num_vert);
-
-        System.out.println("Choose one of the following operations: ");
-        System.out.println("- add edge (enter a)");
-        System.out.println("- delete edge (enter d)");
-        System.out.println("- edge count (enter e)");
-        System.out.println("- vertex count (enter v)");
-        System.out.println("- print graph (enter p)");
-        System.out.println("- Topological sort (enter t)"); // PART 2
-        System.out.println("- BFS, is there path (enter i)"); // PART 3
-        System.out.println("- BFS, length of path (enter l)");
-        System.out.println("- BFS, shortest path (enter s)");
-        System.out.println("- print breadth-first-tree (enter b)");
-        System.out.println("- Quit (enter q)");
-        int num1, num2;
-
-
-        //as long as the user does not enter "q" for quit keeo doing the below
-        while (true) {
-            char input = keyboard.next().charAt(0);
-            String i = keyboard.nextLine();
-
-            //System.out.println("String length: " + i.length());
-            if (i.length() != 0) {
-                input = 'x'; // to go to default
+public class DiGraph {
+    
+    //private instance variable - array of linked lists
+    private LinkedList<Integer>[] arr;
+    
+    
+    // ******---- PART 1 ------******//
+    // constructor with one int type parameter for N that initializes instance variable array
+    public DiGraph(int N) {
+        arr = new LinkedList[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = new LinkedList<Integer>();
+        }
+    }
+    
+    //adds edge to graph
+    public boolean addEdge(int from, int to) {
+        //the edge should not be added if it already exists
+        if (arr[from-1].contains(to)) {
+            return false;
+        }
+        arr[from-1].add(to);
+        return true;
+    }
+    
+    //removes edge from graph
+    public void deleteEdge(int from, int to) {
+        //nothing done if edge does not exist (no error message)
+        int index = arr[from-1].indexOf(to);
+        arr[from-1].remove(index);
+    }
+    
+    //returns num of edges of the graph
+    public int edgeCount() {
+        int edgeSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            edgeSum += arr[i].size();
+        }
+        return edgeSum;
+    }
+    
+    // returns number of vetices (its the arrays length)
+    public int vertexCount() {
+        return arr.length;
+    }
+    
+    //outputs the graph in the format provided in handout
+    public void print() {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print((i+1) + " is connected to: ");
+            for (int j = 0; j < arr[i].size(); j++) {
+                System.out.print(arr[i].get(j));
+                if (j != arr[i].size() - 1) {
+                    System.out.print(", ");
+                }
             }
-
-            switch (input) {
-                case 'q':
-                    System.out.println("Goodbye.");
-                    System.exit(0);
-                case 'a':
-                    System.out.println("Enter two numbers please: ");
-                    num1 = keyboard.nextInt();
-                    num2 = keyboard.nextInt();
-                    diobject.addEdge(num1, num2);
-                    System.out.println("(" + (num1) + "," + (num2) + ")" + " edge is now added to the graph");
-                    break;
-                case 'd':
-                    System.out.println("Enter two numbers please: ");
-                    num1 = keyboard.nextInt();
-                    num2 = keyboard.nextInt();
-                    diobject.deleteEdge(num1, num2);
-                    break;
-                case 'e':
-                    System.out.print("Number of edges is ");
-                    System.out.print(diobject.edgeCount() + "\n");
-                    break;
-                case 'v':
-                    System.out.print("Number of vertices is ");
-                    System.out.print(diobject.vertexCount() + "\n");
-                    break;
-                case 'p':
-                    System.out.println("The graph is the following: ");
-                    diobject.print();
-                    break;
-                // PART 2
-                case 't':
-                    try {
-                        System.out.println("The graph is the following: ");
-                        int arr2[] = diobject.topSort();
-                        int x;
-                        for (x = 0; x < arr2.length-1; x++) {
-                            System.out.print(arr2[x] + ",");
-                        }
-                        System.out.print(arr2[x]);
-                        System.out.print("\n");
-                    }
-                    catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                //PART 3
-                case 'i':
-                    System.out.println("Enter two vertex numbers: ");
-                    num1 = keyboard.nextInt();
-                    num2 = keyboard.nextInt();
-                    if(diobject.isTherePath(num1, num2)){
-                        System.out.println("There is a path");
-                    }
-                    else{
-                        System.out.println("There is no path");
-                    }
-                    break;
-                case 'l':
-                    System.out.println("Enter two vertex numbers: ");
-                    num1 = keyboard.nextInt();
-                    num2 = keyboard.nextInt();
-                    System.out.print("The length of the shortest path is: ");
-                    System.out.print(diobject.lengthOfPath(num1, num2)+ "\n");
-                    break;
-                case 's':
-                    System.out.println("Enter two vertex numbers: ");
-                    num1 = keyboard.nextInt();
-                    num2 = keyboard.nextInt();
-                    System.out.print("The shortest path is: ");
-                    diobject.printPath(num1, num2);
-                    break;
-                //PART 4
-                case 'b':
-                    System.out.println("Enter a source vertex numbers: ");
-                    num1 = keyboard.nextInt();
-                    System.out.print("The breadth-first-tree is: ");
-                    diobject.printTree(num1);
-                    break;
-                default:
-                    System.out.println("Invalid menu choice. Please try again.");
-                    break;
+            System.out.println();
+        }
+    }
+    
+    // ******---- PART 2 ------******
+    //include the implementation of the Topological Sort
+    
+    //returns an array of numbers representing the indegrees of all the vertices in the graph
+    private int[] indegrees() {
+        int n = arr.length;
+        int[] indegrees = new int[n];
+        for (int u = 0; u < n; u++) {
+            for (int v = 0; v < arr[u].size(); v++) {
+                indegrees[arr[u].get(v) - 1] += 1;
             }
-            System.out.println("Choose one of the operations: ");
+        }
+        return indegrees;
+    }
+    
+    //returns an array containing the list of topologically sorted vertices
+    public int[] topSort() throws IllegalArgumentException {
+        int n = arr.length;
+        int []indegrees = indegrees();
+        int[] a = new int[n];
+        Queue<Integer> q = new LinkedList<Integer>();
+        for (int u = 0; u < n; u++) {
+            if (indegrees[u] == 0) {
+                q.add(u+1);
+            }
+        }
+        int i = 0;
+        while (!q.isEmpty()) {
+            int u = q.remove();
+            a[i] = u;
+            i++;
+            for (int v = 0; v < arr[u-1].size(); v++) {
+                indegrees[arr[u-1].get(v) - 1]--;
+                if (indegrees[arr[u-1].get(v) - 1] == 0) {
+                    q.add(arr[u-1].get(v));
+                }
+            }
+        }
+        if (i != n) {
+            throw new IllegalArgumentException("The Graph is Cyclic");
+        }
+        return a;
+    }
+    
+    // ******---- PART 3 ------******
+    //implementation of breadth-first-search and related routines
+    
+    private class VertexInfo {
+        
+        private int dist;
+        private int pred;
+        
+        public VertexInfo(int dist, int pred) {
+            this.dist = dist;
+            this.pred = pred;
+        }
+    }
+    
+    //returns the array of vertex info type objects containing data that can be used
+    //to construct the shortest paths from 's' vertex to all the vertices in the graph
+    //that are reachable from 's'
+    private VertexInfo[] BFS(int s) {
+        int N = arr.length;
+        VertexInfo[] VA = new VertexInfo[N+1];
+        for (int u=1; u<=N; u++) {
+            VA[u] = new VertexInfo(-1, -1);
+        }
+        VA[s].dist = 0;
+        Queue q = new LinkedList<Integer>();
+        q.add(s);
+        while (!q.isEmpty()) {
+            int u = (int) (q.remove());
+            for (int v=0; v<arr[u-1].size(); v++) {
+                int vert = arr[u-1].get(v);
+                if (VA[vert].dist == -1) {
+                    VA[vert].dist = VA[u].dist + 1;
+                    VA[vert].pred = u;
+                    q.add(vert);
+                }
+            }
+        }
+        return VA;
+    }
+    
+    //true if path
+    public boolean isTherePath(int from, int to) {
+        VertexInfo[] VA = BFS(from);
+        if (VA[to].pred == -1) {
+            return false;
+        }
+        return true;
+    }
+    
+    //returns the shortest distance to, from
+    public int lengthOfPath(int from, int to) {
+        VertexInfo[] VA = BFS(from);
+        return VA[to].dist;
+    }
+    
+    //shortest distance from, to
+    public void printPath(int from, int to) {
+        VertexInfo[] VA = BFS(from);
+        if (VA[to].dist == -1) {
+            System.out.println("There is no path");
+        }
+        else {
+            String output = "";
+            while (from != to) {
+                output = " -> " + to + output;
+                to = VA[to].pred;
+            }
+            output = from + output;
+            System.out.println(output);
+        }
+    }
+    
+    // ******---- PART 4 ------******
+    // building and printing of the breadth-first-tree
+    
+    private class TreeNode {
+        
+        private int vert;
+        private LinkedList<TreeNode> child;
+        
+        public TreeNode(int vert, LinkedList<TreeNode> child) {
+            this.vert = vert;
+            this.child = child;
+        }
+    }
+    
+    //returns the root
+    private TreeNode buildTree(int s) {
+        VertexInfo[] VA = BFS(s);
+        int N = VA.length - 1;
+        TreeNode[] tree = new TreeNode[N+1];
+        for (int i=1; i<=N; i++) {
+            tree[i] = new TreeNode(i, new LinkedList<TreeNode>());
+        }
+        for (int i=1; i<=N; i++) {
+            int pred = VA[i].pred;
+            if (pred != -1) {
+                tree[pred].child.add(tree[i]);
+            }
+        }
+        return tree[s];
+    }
+    
+    //prints breadth first tree
+    public void printTree(int s) {
+        System.out.println();
+        TreeNode root = buildTree(s);
+        String str = "";
+        printTreeRecursive(root, str);
+    }
+    
+    private void printTreeRecursive(TreeNode root, String str) {
+        System.out.println(str + root.vert + " ");
+        if (root.child.isEmpty()) {
+            return;
+        }
+        for (int i=0; i<root.child.size(); i++) {
+            printTreeRecursive(root.child.get(i), str + "    ");
         }
     }
 }

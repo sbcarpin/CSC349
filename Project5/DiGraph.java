@@ -1,226 +1,187 @@
 /*Project 5
- *November 30, 2018
+ *December 5, 2018
  *Stephanie Carpintero-Flores - sbcarpin@calpoly.edu
  *Aurora Paz - aepaz@calpoly.edu
  *Natalie Miller - nmille35@calpoly.edu
+ * This is a DiGraph project that uses natural indexing to do a breath first tree,
+ * and topological sort for project 5 in CSC 349.
  */
 
 import java.util.LinkedList;
-import java.io.*;
-import java.util.*;
-import java.lang.*;
+import java.util.Queue;
 
-//a directed graph as an array of Adjacency Linked Lists.
 public class DiGraph {
-    //One private instance variable: this is an array of linked lists (use Java’s LinkedListclass).
+    
+    //private instance variable - array of linked lists
     private LinkedList<Integer>[] arr;
     
-    // A constructor with one int type parameter for N. creates and initializes the instance variable-array
-    DiGraph(int N) {
-        arr = (LinkedList<Integer>[]) new LinkedList[N];
-        // Create a new list for each vertex such that adjacent nodes can be stored
+    
+    // ******---- PART 1 ------******//
+    // constructor with one int type parameter for N that initializes instance variable array
+    public DiGraph(int N) {
+        arr = new LinkedList[N];
         for (int i = 0; i < N; i++) {
-            arr[i] = new LinkedList<>();
+            arr[i] = new LinkedList<Integer>();
         }
     }
     
-    public void addEdge(int from, int to) {
-        from -= 1;
-        to -= 1;
+    //adds edge to graph
+    public boolean addEdge(int from, int to) {
         //the edge should not be added if it already exists
-        if (!arr[from].contains(to)) {
-            arr[from].add(to);
+        if (arr[from-1].contains(to)) {
+            return false;
         }
+        arr[from-1].add(to);
+        return true;
     }
     
+    //removes edge from graph
     public void deleteEdge(int from, int to) {
-        from -= 1;
-        to -= 1;
-        System.out.println("To: " + to + " from: " + from);
-        
         //nothing done if edge does not exist (no error message)
-        if (arr[from].contains(to)) {
-            arr[from].remove(new Integer(to));
-        }
-        System.out.println("Edge Removed");
+        int index = arr[from-1].indexOf(to);
+        arr[from-1].remove(index);
     }
     
+    //returns num of edges of the graph
     public int edgeCount() {
-        int edge_num = 0;
-        
+        int edgeSum = 0;
         for (int i = 0; i < arr.length; i++) {
-            edge_num += arr[i].size();
+            edgeSum += arr[i].size();
         }
-        return edge_num;
+        return edgeSum;
     }
-    
     
     // returns number of vetices (its the arrays length)
     public int vertexCount() {
         return arr.length;
     }
     
-    //outputs the graph in the format provide din handout
+    //outputs the graph in the format provided in handout
     public void print() {
         for (int i = 0; i < arr.length; i++) {
-            System.out.print((i + 1) + " is connected to: ");
+            System.out.print((i+1) + " is connected to: ");
             for (int j = 0; j < arr[i].size(); j++) {
-                System.out.print((arr[i].get(j) + 1));
-                if (arr[i].size() > 1 && j != (arr[i].size() - 1)) {
+                System.out.print(arr[i].get(j));
+                if (j != arr[i].size() - 1) {
                     System.out.print(", ");
                 }
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
     
     // ******---- PART 2 ------******
     //include the implementation of the Topological Sort
     
+    //returns an array of numbers representing the indegrees of all the vertices in the graph
     private int[] indegrees() {
-        int N = arr.length;
-        int[] indegrees = new int[N];
-        
-        for (int j = 0; j < N; j++) {
-            for (int z = 0; z < arr[j].size(); z++) {
-                int v = arr[j].get(z);
-                indegrees[v] += 1;
+        int n = arr.length;
+        int[] indegrees = new int[n];
+        for (int u = 0; u < n; u++) {
+            for (int v = 0; v < arr[u].size(); v++) {
+                indegrees[arr[u].get(v) - 1] += 1;
             }
         }
         return indegrees;
     }
     
-    public int[] topSort() {
-        int N = arr.length;
-        int[] indegrees = indegrees();
-        int[] A = new int[N];
-        
-        LinkedList<Integer> q = new LinkedList<>();
-        
-        for (int u = 0; u < N; u++) {
+    //returns an array containing the list of topologically sorted vertices
+    public int[] topSort() throws IllegalArgumentException {
+        int n = arr.length;
+        int []indegrees = indegrees();
+        int[] a = new int[n];
+        Queue<Integer> q = new LinkedList<Integer>();
+        for (int u = 0; u < n; u++) {
             if (indegrees[u] == 0) {
-                q.addLast(u);
+                q.add(u+1);
             }
         }
-        
-        int u;
         int i = 0;
         while (!q.isEmpty()) {
-            u = q.removeFirst();
-            A[i] = u + 1;
-            i += 1;
-            for (int j = 0; j < arr[u].size(); j++) {
-                int v = arr[u].get(j);
-                indegrees[v]--;
-                
-                if (indegrees[v] == 0) {
-                    q.addLast(v);
+            int u = q.remove();
+            a[i] = u;
+            i++;
+            for (int v = 0; v < arr[u-1].size(); v++) {
+                indegrees[arr[u-1].get(v) - 1]--;
+                if (indegrees[arr[u-1].get(v) - 1] == 0) {
+                    q.add(arr[u-1].get(v));
                 }
             }
         }
-        
-        if (i != N) {
-            throw new IllegalArgumentException("Cyclic cycle");
+        if (i != n) {
+            throw new IllegalArgumentException("The Graph is Cyclic");
         }
-        
-        return A;
+        return a;
     }
-    
     
     // ******---- PART 3 ------******
     //implementation of breadth-first-search and related routines
+    
     private class VertexInfo {
-        public int distance;
-        public int predecessor;
+        
+        private int dist;
+        private int pred;
+        
+        public VertexInfo(int dist, int pred) {
+            this.dist = dist;
+            this.pred = pred;
+        }
     }
     
-    //could decide if natural or not
-    //used to construct shortest paths from s vertex to all vertices in the graph that are reachable from s.
-    //This is the BFS algorithm we discussed in class (see lecture handout).
+    //returns the array of vertex info type objects containing data that can be used
+    //to construct the shortest paths from 's' vertex to all the vertices in the graph
+    //that are reachable from 's'
     private VertexInfo[] BFS(int s) {
-        //returns an array of VertexInfo type objects containing data
-        int u;
-        
         int N = arr.length;
-        VertexInfo[] va = new VertexInfo[N];
-        
-        for(int i = 0; i < N; i ++){
-            va[i] = new VertexInfo();
+        VertexInfo[] VA = new VertexInfo[N+1];
+        for (int u=1; u<=N; u++) {
+            VA[u] = new VertexInfo(-1, -1);
         }
-        
-        for (u = 0; u < N; u++) {
-            va[u].distance = -1;
-            va[u].predecessor = -1;
-        }
-        System.out.println("s: " + s);
-        va[s].distance = 0;
-        
-        Queue<Integer> q = new LinkedList<>();
-        
+        VA[s].dist = 0;
+        Queue q = new LinkedList<Integer>();
         q.add(s);
-        
         while (!q.isEmpty()) {
-            //System.out.println("into the while");
-            
-            u = q.remove();
-            for (int i = 0; i < arr[u].size(); i++) {
-                int v = arr[u].get(i);
-                if (va[v].distance == -1) {
-                    va[v].distance = va[u].distance + 1;
-                    va[v].predecessor = u;
-                    q.add(v);
+            int u = (int) (q.remove());
+            for (int v=0; v<arr[u-1].size(); v++) {
+                int vert = arr[u-1].get(v);
+                if (VA[vert].dist == -1) {
+                    VA[vert].dist = VA[u].dist + 1;
+                    VA[vert].pred = u;
+                    q.add(vert);
                 }
             }
         }
-        
-        return va;
-        
+        return VA;
     }
     
-    //parameters are given in NATURAL (for these 3 methods)
-    //invokes BFS method and uses data in the returned array.
+    //true if path
     public boolean isTherePath(int from, int to) {
-        boolean path = false;
-        
-        VertexInfo[] va = BFS(from - 1 ); //crashes here
-        
-        //returns true if there is a path from from vertex to to vertex, and false otherwise.
-        
-        if (va[to - 1].distance != -1) {
-            path = true;
+        VertexInfo[] VA = BFS(from);
+        if (VA[to].pred == -1) {
+            return false;
         }
-        
-        return path;
+        return true;
     }
     
+    //returns the shortest distance to, from
     public int lengthOfPath(int from, int to) {
-        int length = 0;
-        //returns an integer – the shortest distance of the to vertex from the from vertex.
-        
-        VertexInfo[] va = BFS(from - 1); //crashes here
-        
-        
-        return va[to - 1].distance;
+        VertexInfo[] VA = BFS(from);
+        return VA[to].dist;
     }
     
+    //shortest distance from, to
     public void printPath(int from, int to) {
-        //arranges the output of the shortest path from from vertex to to vertex if to is reachable from from
-        // (vertices of the path should be printed in natural numbering);
-        from -= 1;
-        to -= 1;
-        
-        String output = "";
-        VertexInfo[] va = BFS(from);
-        
-        if (va[to].distance == -1) {
+        VertexInfo[] VA = BFS(from);
+        if (VA[to].dist == -1) {
             System.out.println("There is no path");
-        } else {
-            output = "";
+        }
+        else {
+            String output = "";
             while (from != to) {
-                output = "->" + (to + 1) + output;
-                to = va[to].predecessor;
+                output = " -> " + to + output;
+                to = VA[to].pred;
             }
-            output = (from + 1) + output;
+            output = from + output;
             System.out.println(output);
         }
     }
@@ -228,79 +189,50 @@ public class DiGraph {
     // ******---- PART 4 ------******
     // building and printing of the breadth-first-tree
     
-    private class TreeNode{
-        public int vert_num;
-        public LinkedList<TreeNode>[] child;
-        //LinkedList type list to hold TreeNode type objects representing this vertex’s children.
+    private class TreeNode {
+        
+        private int vert;
+        private LinkedList<TreeNode> child;
+        
+        public TreeNode(int vert, LinkedList<TreeNode> child) {
+            this.vert = vert;
+            this.child = child;
+        }
     }
     
-    private int buildTree(int s){
-        
-        System.out.println("S: " + s);
-        int root;
-        int N = arr.length;
-        // gives distance and predecessor
-        VertexInfo[] va = BFS(s);
-        
-        // HOW BIG SHOULD THIS BE
-        TreeNode[] tree = new TreeNode[arr.length];
-        for(int i = 0; i < N; i ++){
-            tree[i] = new TreeNode();
-            tree[i].child = new LinkedList[2];
-            System.out.println("tree");
+    //returns the root
+    private TreeNode buildTree(int s) {
+        VertexInfo[] VA = BFS(s);
+        int N = VA.length - 1;
+        TreeNode[] tree = new TreeNode[N+1];
+        for (int i=1; i<=N; i++) {
+            tree[i] = new TreeNode(i, new LinkedList<TreeNode>());
         }
-        
-        
-        for(int i = 0; i < N; i++){
-            int z = 0;
-            tree[i].vert_num = va[i].predecessor;
-            //trying to go through array of children so we don't overwrite them
-            //going to next "empty" child to fill it
-            System.out.println(tree[i].child[z]);
-            while(tree[i].child[z] != null)
-                z++;
-            System.out.println("z: " + z);
-            
-            tree[i].child[z].add(tree[i]);
-            s = va[s].predecessor;
-        }
-        // while not a vertex
-        while(va[s].predecessor != -1){
-            
-            // goes up the tree
-            s = va[s].predecessor;
-        }
-        root = s;
-        //returns the root of the breadth-first-tree for the given s source- vertex.
-        //The tree can be built based on the data in the array returned by the BFS method.
-        
-        return root;
-    }
-    
-    public void printTree(int s){
-        int N = arr.length;
-        s--;
-        
-        if (buildTree(s) != 0)
-            
-            //prints the breadth-first-tree for a given source vertex s.
-            //Vertex s is given via natural numbering: manage adjustments with Java indexing.
-            for(int i = 0; i < N; i++){
-                breath(buildTree(s));
+        for (int i=1; i<=N; i++) {
+            int pred = VA[i].pred;
+            if (pred != -1) {
+                tree[pred].child.add(tree[i]);
             }
-        
-        //invoke buildTree method and obtain the breadth-first-tree (more precisely, its root-node). Then
-        //arrange the printing of this tree in the required format (vertices must be naturally numbered)
-        
+        }
+        return tree[s];
     }
     
-    private static void breath(int root){
-        if (root == 0)
+    //prints breadth first tree
+    public void printTree(int s) {
+        System.out.println();
+        TreeNode root = buildTree(s);
+        String str = "";
+        printTreeRecursive(root, str);
+    }
+    
+    private void printTreeRecursive(TreeNode root, String str) {
+        System.out.println(str + root.vert + " ");
+        if (root.child.isEmpty()) {
             return;
-        
-        System.out.print(root + " ");
-        breath(root);
-        breath(root);
+        }
+        for (int i=0; i<root.child.size(); i++) {
+            printTreeRecursive(root.child.get(i), str + "    ");
+        }
     }
 }
 
